@@ -19,6 +19,7 @@ data class WeatherResponse(
 )
 
 data class ForecastResponse(
+    @SerializedName("dt") val dt: Long,
     @SerializedName("temp") val temp: TemperatureResponse,
     @SerializedName("pressure") val pressure: Int,
     @SerializedName("humidity") val humidity: Int,

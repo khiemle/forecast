@@ -8,5 +8,6 @@ internal interface IOpenWeatherApi {
     @GET("/data/2.5/forecast/daily")
     suspend fun getDaily(@Query("q") city: String,
                          @Query("cnt") days: Int,
-                         @Query("appid") appId: String) : OpenWeatherGetDailyResponse
+                         @Query("appid") appId: String,
+                         @Query("units") units: String? = "metric") : OpenWeatherGetDailyResponse
 }
