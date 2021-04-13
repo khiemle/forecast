@@ -1,7 +1,5 @@
 package com.khiemle.data.repositories
 
-import android.util.Log
-
 internal inline fun <T : Any> runNetworkSafe(block: () -> OpenWeatherResult<T>): OpenWeatherResult<T> {
     runCatching {
         return block.invoke()

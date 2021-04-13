@@ -6,10 +6,21 @@ object Libs {
         const val android = "com.android.tools.build:gradle:$version"
     }
 
+    object Test {
+        object Kluent {
+            private const val version = "1.63"
+            const val mock = "org.amshove.kluent:kluent-android:$version"
+        }
+    }
+
     object Kotlin {
         const val version = "1.4.32"
         const val gradlePlugin = "gradle-plugin"
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$version"
+        object Coroutine {
+            const val coroutineVersion = "1.4.3"
+            const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion"
+        }
     }
 
     object Network {
