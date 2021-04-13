@@ -7,21 +7,20 @@ object Libs {
     }
 
     object Kotlin {
-        const val version = "1.3.50"
+        const val version = "1.4.32"
         const val gradlePlugin = "gradle-plugin"
-        const val stdlibJDK7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version"
-        const val reflect = "org.jetbrains.kotlin:kotlin-reflect:$version"
+        const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$version"
     }
 
     object Network {
         object OkHttp3 {
-            const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:3.10.0"
+            const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:4.9.1"
         }
 
         object Retrofit2 {
-            private const val version = "2.5.0"
+            private const val version = "4.9.1"
             const val retrofit = "com.squareup.retrofit2:retrofit:$version"
-            const val convertGson = "com.squareup.retrofit2:converter-gson:2.4.0"
+            const val convertGson = "com.squareup.retrofit2:converter-gson:2.9.0"
         }
     }
 
@@ -32,7 +31,7 @@ object Libs {
         }
 
         object Dagger {
-            private const val version = "2.16"
+            private const val version = "2.29.1"
             const val dagger = "com.google.dagger:dagger:$version"
             const val daggerAndroid = "com.google.dagger:dagger-android:$version"
             const val daggerAndroidSupport = "com.google.dagger:dagger-android-support:$version"

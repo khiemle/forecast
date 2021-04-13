@@ -1,6 +1,8 @@
+import com.khiemle.libs.Libs
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -33,11 +35,21 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
+    implementation(Libs.Kotlin.stdlib)
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.3.0")
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+
+    implementation(Libs.Google.Dagger.dagger)
+    implementation(Libs.Google.Dagger.daggerAndroid)
+    implementation(Libs.Google.Dagger.daggerAndroidSupport)
+    kapt(Libs.Google.Dagger.daggerCompiler)
+    kapt(Libs.Google.Dagger.daggerAndroidProcessor)
+
+    implementation(Libs.Network.OkHttp3.loggingInterceptor)
+    implementation(Libs.Network.Retrofit2.retrofit)
+    implementation(Libs.Network.Retrofit2.convertGson)
 }
