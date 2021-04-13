@@ -18,7 +18,7 @@ object Libs {
         }
 
         object Retrofit2 {
-            private const val version = "4.9.1"
+            private const val version = "2.9.0"
             const val retrofit = "com.squareup.retrofit2:retrofit:$version"
             const val convertGson = "com.squareup.retrofit2:converter-gson:2.9.0"
         }
