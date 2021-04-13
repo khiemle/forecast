@@ -11,6 +11,9 @@ internal class OpenWeatherErrorParser(private val exception: Throwable) : Throwa
                 code = exception.code()
             )
         }
-        return OpenWeatherResultError(exception)
+        return OpenWeatherResultError(
+            exception,
+            message = exception.message.orEmpty()
+        )
     }
 }
