@@ -1,4 +1,4 @@
-package com.khiemle.data.network.response
+package com.khiemle.data.response
 
 import com.google.gson.annotations.SerializedName
 

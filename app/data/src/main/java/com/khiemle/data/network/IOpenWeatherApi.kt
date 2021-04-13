@@ -1,6 +1,6 @@
 package com.khiemle.data.network
 
-import com.khiemle.data.network.response.OpenWeatherGetDailyResponse
+import com.khiemle.data.response.OpenWeatherGetDailyResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
