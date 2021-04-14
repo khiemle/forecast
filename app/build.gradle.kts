@@ -37,6 +37,7 @@ android {
 
 dependencies {
 
+    implementation(project(":app:domain"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
@@ -46,9 +47,17 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 
+    implementation(Libs.AndroidJetPack.AndroidX.LifeCycle.livedata)
+    implementation(Libs.AndroidJetPack.AndroidX.LifeCycle.viewModelExtensions)
+
     implementation(Libs.Google.Dagger.dagger)
     implementation(Libs.Google.Dagger.daggerAndroid)
     implementation(Libs.Google.Dagger.daggerAndroidSupport)
     kapt(Libs.Google.Dagger.daggerCompiler)
     kapt(Libs.Google.Dagger.daggerAndroidProcessor)
+
+    implementation(Libs.Kotlin.Coroutine.coroutines)
+    implementation(Libs.Kotlin.Coroutine.coroutinesAndroid)
+
+
 }

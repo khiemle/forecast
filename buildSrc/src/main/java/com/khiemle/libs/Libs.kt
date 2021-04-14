@@ -19,6 +19,8 @@ object Libs {
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$version"
         object Coroutine {
             const val coroutineVersion = "1.4.3"
+            const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion"
+            const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
             const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion"
         }
     }
@@ -70,10 +72,12 @@ object Libs {
             }
 
             object LifeCycle {
-                private const val version = "2.1.0"
+                private const val version = "2.2.0"
                 const val runtime = "androidx.lifecycle:lifecycle-runtime:$version"
                 const val extension = "androidx.lifecycle:lifecycle-extensions:$version"
                 const val compiler = "androidx.lifecycle:lifecycle-compiler:$version"
+                const val livedata = "androidx.lifecycle:lifecycle-livedata:$version"
+                const val viewModelExtensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${version}"
             }
 
         }
