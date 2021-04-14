@@ -44,11 +44,11 @@ internal class OpenWeatherTest {
     @Test
     internal fun `should return success data when pass valid value`() {
         testDispatcher.runBlockingTest {
-            When calling api.getDaily(city = "Saigon", days = 7, appId = "api key") itReturns getSaigonForecastDaily()
+            When calling api.getDaily(city = "Saigon", days = 7, appId = "api key", units = "metric") itReturns getSaigonForecastDaily()
             val expectedResult = OpenWeatherResultSuccess(getSaigonForecastDaily())
-            val actualResult = openWeather.getDaily(cityName = "Saigon", numberDayOfForecast = 7, apiKey = "api key")
+            val actualResult = openWeather.getDaily(cityName = "Saigon", numberDayOfForecast = 7, apiKey = "api key", units = "metric")
 
-            Verify on api that api.getDaily(any(), any(), any()) was called
+            Verify on api that api.getDaily(any(), any(), any(), any()) was called
             assertTrue(ReflectionEquals(expectedResult).matches(actualResult))
         }
     }
@@ -58,10 +58,10 @@ internal class OpenWeatherTest {
         testDispatcher.runBlockingTest {
             val responseErrorMock = Mockito.mock(ResponseBody::class.java)
             val cityNotFoundThrowable = HttpException(Response.error<Nothing>(404, responseErrorMock))
-            When calling api.getDaily(city = "unknown city", days = 7, appId = "api key") itThrows cityNotFoundThrowable
-            val actualResult = openWeather.getDaily(cityName = "unknown city", numberDayOfForecast = 7, apiKey = "api key")
+            When calling api.getDaily(city = "unknown city", days = 7, appId = "api key", units = "metric") itThrows cityNotFoundThrowable
+            val actualResult = openWeather.getDaily(cityName = "unknown city", numberDayOfForecast = 7, apiKey = "api key", units = "metric")
 
-            Verify on api that api.getDaily(any(), any(), any()) was called
+            Verify on api that api.getDaily(any(), any(), any(), any()) was called
             assertTrue(actualResult is OpenWeatherResultError)
             assertTrue(actualResult.code == 404)
         }
