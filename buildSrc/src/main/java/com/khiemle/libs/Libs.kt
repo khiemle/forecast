@@ -56,6 +56,10 @@ object Libs {
 
     object AndroidJetPack {
         object AndroidX {
+            object Ktx {
+                private const val activityVersion = "1.1.0"
+                const val activityExtensions = "androidx.activity:activity-ktx:${activityVersion}"
+            }
             object AppCompat {
                 private const val version = "1.1.0"
                 const val appCompat = "androidx.appcompat:appcompat:$version"

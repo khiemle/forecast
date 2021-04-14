@@ -3,12 +3,15 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    id("kotlin-android")
 }
 
 android {
     compileSdkVersion(30)
     buildToolsVersion("30.0.3")
+
+    buildFeatures {
+        viewBinding = true
+    }
 
     defaultConfig {
         applicationId = "com.khiemle.nab"
@@ -38,6 +41,7 @@ android {
 dependencies {
 
     implementation(project(":app:domain"))
+    implementation(project(":app:utilities"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
@@ -49,6 +53,7 @@ dependencies {
 
     implementation(Libs.AndroidJetPack.AndroidX.LifeCycle.livedata)
     implementation(Libs.AndroidJetPack.AndroidX.LifeCycle.viewModelExtensions)
+    implementation(Libs.AndroidJetPack.AndroidX.Ktx.activityExtensions)
 
     implementation(Libs.Google.Dagger.dagger)
     implementation(Libs.Google.Dagger.daggerAndroid)
