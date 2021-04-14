@@ -2,6 +2,7 @@ import com.khiemle.libs.Libs
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -44,4 +45,10 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
     testImplementation(Libs.Kotlin.Coroutine.test)
     testImplementation(Libs.Test.Kluent.mock)
+
+    implementation(Libs.Google.Dagger.dagger)
+    implementation(Libs.Google.Dagger.daggerAndroid)
+    implementation(Libs.Google.Dagger.daggerAndroidSupport)
+    kapt(Libs.Google.Dagger.daggerCompiler)
+    kapt(Libs.Google.Dagger.daggerAndroidProcessor)
 }
