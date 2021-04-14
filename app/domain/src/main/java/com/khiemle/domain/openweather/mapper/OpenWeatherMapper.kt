@@ -13,7 +13,7 @@ internal const val HUMIDITY_SIGN = "%"
 internal fun mapResponseDataToEntity(responseData: OpenWeatherGetDailyResponse): List<Forecast> {
     return responseData.list.map { forecastResponse ->
         Forecast(
-            date = convertTimestampToDisplayDate(forecastResponse.dt * 1000),
+            timeStamp = forecastResponse.dt * 1000,
             averageTemperature = convertTemperatureToDisplayTemperature(forecastResponse.temp),
             humidity = "${forecastResponse.humidity}$HUMIDITY_SIGN",
             pressure = "${forecastResponse.pressure}",
@@ -31,5 +31,5 @@ internal fun convertTimestampToDisplayDate(timestamp: Long) : String {
 }
 
 internal fun convertTemperatureToDisplayTemperature(temperatureResponse: TemperatureResponse) : String {
-    return "${(temperatureResponse.day + temperatureResponse.night) / 2}$CELSIUS_CHAR"
+    return "${(temperatureResponse.min + temperatureResponse.max) / 2}$CELSIUS_CHAR"
 }

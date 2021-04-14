@@ -1,7 +1,7 @@
 package com.khiemle.domain.openweather.entities
 
 data class Forecast(
-    val date: String,
+    val timeStamp: Long,
     val averageTemperature: String,
     val pressure: String,
     val humidity: String,

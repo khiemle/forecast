@@ -51,4 +51,6 @@ dependencies {
     implementation(Libs.Google.Dagger.daggerAndroidSupport)
     kapt(Libs.Google.Dagger.daggerCompiler)
     kapt(Libs.Google.Dagger.daggerAndroidProcessor)
+
+    testImplementation("org.mockito:mockito-core:3.5.7")
 }

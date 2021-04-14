@@ -26,7 +26,7 @@ internal class OpenWeatherUseCases @Inject constructor (private val openWeather:
             } else {
                 result.code?.let {
                     if (it == DataResultError.NOT_FOUND_CITY_CODE) {
-                        return CityNotFoundError()
+                        return CityNotFoundError(code = result.code)
                     }
                 }
                 return CommonError()
