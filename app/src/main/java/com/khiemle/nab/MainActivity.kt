@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.khiemle.domain.openweather.entities.Forecast
 import com.khiemle.nab.databinding.ActivityMainBinding
+import com.khiemle.nab.deps.DependenciesProvider
 import com.khiemle.utilities.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity(), IMainView {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // TODO: Need inject dependencies here
+        (applicationContext as DependenciesProvider).provideInjectionProvider().inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
