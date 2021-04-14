@@ -1,13 +1,11 @@
-package com.khiemle.domain.mapper
-
+package com.khiemle.utilities.datetime
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.khiemle.domain.openweather.mapper.convertTimestampToDisplayDate
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Assert.*
 
 @RunWith(AndroidJUnit4::class)
-internal class OpenWeatherMapperTest {
+internal class DateTimeHelperTest {
     @Test
     internal fun testFuncConvertTimestampToDisplayDate(){
         val displayDate = convertTimestampToDisplayDate(TIMESTAMP_TEST)

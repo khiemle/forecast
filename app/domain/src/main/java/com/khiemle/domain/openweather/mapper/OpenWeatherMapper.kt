@@ -24,12 +24,6 @@ internal fun mapResponseDataToEntity(responseData: OpenWeatherGetDailyResponse):
     }
 }
 
-internal fun convertTimestampToDisplayDate(timestamp: Long) : String {
-    val cal: Calendar = Calendar.getInstance()
-    cal.timeInMillis = timestamp
-    return DateFormat.format("EEE, dd MMM yyyy", cal).toString()
-}
-
 internal fun convertTemperatureToDisplayTemperature(temperatureResponse: TemperatureResponse) : String {
     return "${(temperatureResponse.min + temperatureResponse.max) / 2}$CELSIUS_CHAR"
 }
