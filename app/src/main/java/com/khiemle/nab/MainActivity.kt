@@ -19,6 +19,10 @@ class MainActivity : AppCompatActivity(), IMainView {
         viewModelFactory
     }
 
+    private val forecastAdapter: ForecastAdapter by lazy {
+        ForecastAdapter()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         // TODO: Need inject dependencies here
         super.onCreate(savedInstanceState)
@@ -31,7 +35,7 @@ class MainActivity : AppCompatActivity(), IMainView {
     }
 
     override fun showDailyForecast(forecasts: List<Forecast>) {
-        TODO("Not yet implemented")
+        forecastAdapter.submitList(forecasts)
     }
 
     override fun showErrorMessage(message: String) {
