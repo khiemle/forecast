@@ -1,12 +1,10 @@
 package com.khiemle.domain.openweather.mapper
 
-import android.text.format.DateFormat
 import com.khiemle.data.response.OpenWeatherGetDailyResponse
 import com.khiemle.data.response.TemperatureResponse
 import com.khiemle.domain.openweather.entities.Forecast
-import java.util.*
 
-internal const val CELSIUS_CHAR = "\\u2109"
+internal const val CELSIUS_CHAR = "\u2103"
 internal const val DESCRIPTION_SEPARATOR = ", "
 internal const val HUMIDITY_SIGN = "%"
 
@@ -25,5 +23,5 @@ internal fun mapResponseDataToEntity(responseData: OpenWeatherGetDailyResponse):
 }
 
 internal fun convertTemperatureToDisplayTemperature(temperatureResponse: TemperatureResponse) : String {
-    return "${(temperatureResponse.min + temperatureResponse.max) / 2}$CELSIUS_CHAR"
+    return "${((temperatureResponse.min + temperatureResponse.max) / 2).toInt()}$CELSIUS_CHAR"
 }

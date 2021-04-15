@@ -3,6 +3,8 @@ package com.khiemle.nab
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.khiemle.domain.openweather.entities.Forecast
 import com.khiemle.nab.databinding.ActivityMainBinding
 import com.khiemle.nab.deps.DependenciesProvider
@@ -33,19 +35,28 @@ class MainActivity : AppCompatActivity(), IMainView {
         binding.searchBtn.setOnClickListener {
             search(binding.textInput.text.toString())
         }
-        binding.rvDailyForecast.adapter = forecastAdapter
+        binding.rvDailyForecast.apply {
+            adapter = forecastAdapter
+            addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
+        }
     }
 
     override fun showDailyForecast(forecasts: List<Forecast>) {
+        binding.pdLoading.isVisible = false
+        binding.tvMessage.isVisible = false
         forecastAdapter.submitList(forecasts)
     }
 
     override fun showErrorMessage(message: String) {
-//        TODO("Not yet implemented")
+        binding.pdLoading.isVisible = false
+        binding.tvMessage.isVisible = true
+        binding.tvMessage.text = message
     }
 
     override fun showLoading() {
-//        TODO("Not yet implemented")
+        binding.pdLoading.isVisible = true
+        binding.tvMessage.isVisible = false
+        forecastAdapter.submitList(listOf())
     }
 
     private fun instantSearch(query: String) {
