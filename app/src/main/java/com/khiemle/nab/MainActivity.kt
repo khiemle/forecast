@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(), IMainView {
         binding.searchBtn.setOnClickListener {
             search(binding.textInput.text.toString())
         }
+        binding.rvDailyForecast.adapter = forecastAdapter
     }
 
     override fun showDailyForecast(forecasts: List<Forecast>) {
@@ -40,15 +41,15 @@ class MainActivity : AppCompatActivity(), IMainView {
     }
 
     override fun showErrorMessage(message: String) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     override fun showLoading() {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     private fun instantSearch(query: String) {
-        //TODO: Will be an extra feature if have time
+//        TODO: Will be an extra feature if have time
     }
 
     private fun search(query: String) {

@@ -40,6 +40,7 @@ android {
 
 dependencies {
 
+    implementation(project(":app:data"))
     implementation(project(":app:domain"))
     implementation(project(":app:utilities"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
