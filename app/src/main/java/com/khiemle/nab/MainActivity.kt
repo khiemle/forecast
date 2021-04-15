@@ -2,6 +2,7 @@ package com.khiemle.nab
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.khiemle.domain.openweather.entities.Forecast
 import com.khiemle.nab.databinding.ActivityMainBinding
 import com.khiemle.nab.deps.DependenciesProvider
+import com.khiemle.nab.device.DeviceInfo
 import com.khiemle.utilities.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
@@ -18,6 +20,9 @@ class MainActivity : AppCompatActivity(), IMainView {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var deviceInfo: DeviceInfo
 
     private val mainViewModel: MainViewModel by viewModels {
         viewModelFactory
@@ -44,6 +49,11 @@ class MainActivity : AppCompatActivity(), IMainView {
                     mainViewModel.search(content)
                 }
             }
+        }
+
+        if (deviceInfo.isRooted) {
+            val toast = Toast.makeText(this, getString(R.string.rooted_warning), Toast.LENGTH_LONG)
+            toast.show()
         }
     }
 

@@ -52,7 +52,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 
-    implementation(Libs.AndroidJetPack.AndroidX.LifeCycle.livedata)
+    implementation(Libs.AndroidJetPack.AndroidX.LifeCycle.liveData)
     implementation(Libs.AndroidJetPack.AndroidX.LifeCycle.viewModelExtensions)
     implementation(Libs.AndroidJetPack.AndroidX.Ktx.activityExtensions)
 
@@ -69,5 +69,6 @@ dependencies {
     testImplementation(Libs.Test.Kluent.mock)
     testImplementation("org.mockito:mockito-core:3.5.7")
 
+    implementation(Libs.RootBeer.rootBeer)
 
 }

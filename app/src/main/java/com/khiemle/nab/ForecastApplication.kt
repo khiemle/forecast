@@ -20,7 +20,7 @@ class ForecastApplication: Application(), DependenciesProvider {
     }
 
     private val appComponents: AppComponents by lazy {
-        DaggerAppComponents.builder().openWeatherUseCases(domainComponents.openWeatherUseCases()).build()
+        DaggerAppComponents.builder().context(applicationContext).openWeatherUseCases(domainComponents.openWeatherUseCases()).build()
     }
 
     override fun provideInjectionProvider(): InjectionProvider = appComponents

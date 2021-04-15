@@ -6,6 +6,10 @@ object Libs {
         const val android = "com.android.tools.build:gradle:$version"
     }
 
+    object RootBeer {
+        const val rootBeer = "com.scottyab:rootbeer-lib:0.0.8"
+    }
+
     object Test {
         object Kluent {
             private const val version = "1.63"
@@ -15,7 +19,6 @@ object Libs {
 
     object Kotlin {
         const val version = "1.4.32"
-        const val gradlePlugin = "gradle-plugin"
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$version"
         object Coroutine {
             const val coroutineVersion = "1.4.3"
@@ -77,16 +80,11 @@ object Libs {
 
             object LifeCycle {
                 private const val version = "2.2.0"
-                const val runtime = "androidx.lifecycle:lifecycle-runtime:$version"
-                const val extension = "androidx.lifecycle:lifecycle-extensions:$version"
-                const val compiler = "androidx.lifecycle:lifecycle-compiler:$version"
-                const val livedata = "androidx.lifecycle:lifecycle-livedata:$version"
+                const val liveData = "androidx.lifecycle:lifecycle-livedata:$version"
                 const val viewModelExtensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${version}"
             }
 
         }
-
-
     }
 
 }
