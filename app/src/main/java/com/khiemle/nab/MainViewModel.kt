@@ -5,6 +5,8 @@ import com.khiemle.domain.openweather.entities.DataResultError
 import com.khiemle.domain.openweather.entities.DataResultSuccess
 import com.khiemle.domain.openweather.entities.Forecast
 import com.khiemle.domain.openweather.usecases.IOpenWeatherUseCases
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,12 +17,15 @@ class MainViewModel @Inject constructor(
     val mainState: LiveData<MainState>
         get() = Transformations.distinctUntilChanged(_mainState)
 
-    private suspend fun postValue(state: MainState) {
+    private fun postValue(state: MainState) {
         _mainState.postValue(state)
     }
+    private var searchJob: Job? = null
 
     fun search(query: String) {
-        viewModelScope.launch {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(DEBOUNCE_DURATION)
             postValue(MainState.ShowLoading)
             val result = openWeatherUseCases.getDailyForecast(query)
             if (result is DataResultSuccess) {
@@ -33,6 +38,9 @@ class MainViewModel @Inject constructor(
                 )
             }
         }
+    }
+    companion object {
+        const val DEBOUNCE_DURATION = 1000L
     }
 }
 

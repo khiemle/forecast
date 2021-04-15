@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.khiemle.domain.openweather.entities.Forecast
 import com.khiemle.nab.databinding.ActivityMainBinding
@@ -32,12 +33,17 @@ class MainActivity : AppCompatActivity(), IMainView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mainViewModel.mainState.observe(this, MainObserver(this))
-        binding.searchBtn.setOnClickListener {
-            search(binding.textInput.text.toString())
-        }
         binding.rvDailyForecast.apply {
             adapter = forecastAdapter
             addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
+        }
+        binding.textInput.doAfterTextChanged {
+            it?.let { editable ->
+                val content = editable.trim().toString()
+                if (content.length >= 3) {
+                    mainViewModel.search(content)
+                }
+            }
         }
     }
 
@@ -58,11 +64,6 @@ class MainActivity : AppCompatActivity(), IMainView {
         binding.tvMessage.isVisible = false
         forecastAdapter.submitList(listOf())
     }
-
-    private fun instantSearch(query: String) {
-//        TODO: Will be an extra feature if have time
-    }
-
     private fun search(query: String) {
         mainViewModel.search(query)
     }
