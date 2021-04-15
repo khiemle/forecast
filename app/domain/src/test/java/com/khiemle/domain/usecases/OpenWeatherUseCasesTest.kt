@@ -20,7 +20,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -33,7 +32,6 @@ internal class OpenWeatherUseCasesTest {
 
     @Before
     internal fun setUp() {
-        MockitoAnnotations.openMocks(this).close()
         Dispatchers.setMain(dispatcher = testDispatcher)
         useCases = OpenWeatherUseCases(openWeather = repository)
     }

@@ -65,5 +65,9 @@ dependencies {
     implementation(Libs.Kotlin.Coroutine.coroutines)
     implementation(Libs.Kotlin.Coroutine.coroutinesAndroid)
 
+    testImplementation(Libs.Kotlin.Coroutine.test)
+    testImplementation(Libs.Test.Kluent.mock)
+    testImplementation("org.mockito:mockito-core:3.5.7")
+
 
 }

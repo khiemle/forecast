@@ -43,8 +43,7 @@ dependencies {
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
-    testImplementation(Libs.Kotlin.Coroutine.test)
-    testImplementation(Libs.Test.Kluent.mock)
+
 
     implementation(Libs.Google.Dagger.dagger)
     implementation(Libs.Google.Dagger.daggerAndroid)
@@ -52,5 +51,7 @@ dependencies {
     kapt(Libs.Google.Dagger.daggerCompiler)
     kapt(Libs.Google.Dagger.daggerAndroidProcessor)
 
+    testImplementation(Libs.Kotlin.Coroutine.test)
+    testImplementation(Libs.Test.Kluent.mock)
     testImplementation("org.mockito:mockito-core:3.5.7")
 }
