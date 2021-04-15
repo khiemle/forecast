@@ -22,7 +22,7 @@ internal class OpenWeather @Inject constructor(
         units: String
     ): OpenWeatherResult<OpenWeatherGetDailyResponse> {
         return runNetworkSafe {
-            OpenWeatherResultSuccess(api.getDaily(
+            return OpenWeatherResultSuccess(api.getDaily(
                 city = cityName,
                 days = numberDayOfForecast,
                 appId = apiKey,
