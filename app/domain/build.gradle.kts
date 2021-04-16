@@ -36,7 +36,8 @@ android {
 
 dependencies {
     implementation(project(":app:data"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
+    implementation(Libs.Kotlin.stdlib)
+    implementation(Libs.Kotlin.Coroutine.coroutines)
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.3.0")
