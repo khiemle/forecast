@@ -1,4 +1,4 @@
-package com.khiemle.data.room
+package com.khiemle.data.room.models
 
 import androidx.room.Entity
 

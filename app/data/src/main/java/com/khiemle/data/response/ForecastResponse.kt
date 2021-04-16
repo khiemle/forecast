@@ -12,10 +12,10 @@ data class TemperatureResponse(
 )
 
 data class WeatherResponse(
-    @SerializedName("id") val id: Int,
-    @SerializedName("main") val main: String,
     @SerializedName("description") val description: String,
-    @SerializedName("icon") val icon: String
+    @SerializedName("id") val id: Int? = null,
+    @SerializedName("main") val main: String? = null,
+    @SerializedName("icon") val icon: String? = null
 )
 
 data class ForecastResponse(
@@ -25,3 +25,9 @@ data class ForecastResponse(
     @SerializedName("humidity") val humidity: Int,
     @SerializedName("weather") val weather: List<WeatherResponse>
 )
+
+data class CityResponse(
+    @SerializedName("id") val id: Long,
+    @SerializedName("name") val name: String? = null,
+
+    )
