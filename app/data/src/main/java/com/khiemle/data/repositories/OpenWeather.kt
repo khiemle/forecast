@@ -6,7 +6,7 @@ import com.khiemle.data.response.CityResponse
 import com.khiemle.data.response.OpenWeatherGetDailyResponse
 import com.khiemle.data.room.ForecastDatabase
 import com.khiemle.data.room.models.CityKeyMap
-import com.khiemle.data.room.models.mapToForecastR
+import com.khiemle.data.room.models.mapToPersistentForecast
 import com.khiemle.data.room.models.mapToForecastResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -98,7 +98,7 @@ internal class OpenWeather @Inject constructor(
 
             if (listRemoteResponse is OpenWeatherResultSuccess) {
                 val cacheList =
-                    listRemoteResponse.data.list.map { it.mapToForecastR(listRemoteResponse.data.city.id) }
+                    listRemoteResponse.data.list.map { it.mapToPersistentForecast(listRemoteResponse.data.city.id) }
                 database.forecastRDao().insertForecasts(cacheList)
                 database.cityKeyMapDao().insertCityKeyMap(
                     CityKeyMap(

@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.khiemle.data.room.models.CityKeyMap
-import com.khiemle.data.room.models.ForecastR
+import com.khiemle.data.room.models.PersistentForecast
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -38,7 +38,7 @@ class ForecastDatabaseTest {
     @Test
     @Throws(Exception::class)
     fun writeForecastSearchKeyAndQueryInList() {
-        val forecastR = ForecastR(
+        val forecastR = PersistentForecast(
             cityId = 1,
             timeStamp = 1000L,
             averageTemperature = 30.toDouble(),
@@ -46,7 +46,7 @@ class ForecastDatabaseTest {
             humidity = 70,
             description = "rain"
         )
-        val oldForecastR = ForecastR(
+        val oldForecastR = PersistentForecast(
             cityId = 2,
             timeStamp = 200L,
             averageTemperature = 16.toDouble(),

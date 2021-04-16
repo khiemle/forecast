@@ -1,14 +1,13 @@
 package com.khiemle.data.room.models
 
 import androidx.room.Entity
-import com.khiemle.data.response.CityResponse
 import com.khiemle.data.response.ForecastResponse
 import com.khiemle.data.response.TemperatureResponse
 import com.khiemle.data.response.WeatherResponse
 
 
 @Entity(tableName = "forecast", primaryKeys = ["cityId", "timeStamp"])
-data class ForecastR(
+data class PersistentForecast(
     val cityId: Long = 0L,
     val timeStamp: Long = 0L,
     val averageTemperature: Double,
@@ -18,7 +17,7 @@ data class ForecastR(
 )
 
 
-fun ForecastR.mapToForecastResponse() : ForecastResponse {
+fun PersistentForecast.mapToForecastResponse() : ForecastResponse {
     return ForecastResponse(
         dt = timeStamp,
         temp = TemperatureResponse(min = averageTemperature, max = averageTemperature),
@@ -30,8 +29,8 @@ fun ForecastR.mapToForecastResponse() : ForecastResponse {
     )
 }
 
-fun ForecastResponse.mapToForecastR(cityId: Long): ForecastR {
-    return ForecastR(
+fun ForecastResponse.mapToPersistentForecast(cityId: Long): PersistentForecast {
+    return PersistentForecast(
         cityId = cityId,
         timeStamp = dt,
         averageTemperature = (temp.min + temp.max) / 2,

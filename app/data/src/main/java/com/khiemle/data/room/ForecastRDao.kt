@@ -4,15 +4,15 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.khiemle.data.room.models.ForecastR
+import com.khiemle.data.room.models.PersistentForecast
 
 @Dao
 interface ForecastRDao {
     @Query("select forecast.cityId, forecast.timeStamp, averageTemperature, pressure, humidity, description from forecast inner join city_key_map on city_key_map.cityId = forecast.cityId where city_key_map.`query` like :searchKey and forecast.timeStamp >= :timestamp limit :count")
-    fun loadAllForecasts(searchKey: String, timestamp: Long, count: Int): List<ForecastR>
+    fun loadAllForecasts(searchKey: String, timestamp: Long, count: Int): List<PersistentForecast>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertForecasts(forecasts: List<ForecastR>)
+    fun insertForecasts(persistentForecasts: List<PersistentForecast>)
 
     @Query("delete from forecast")
     fun deleteAll()

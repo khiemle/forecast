@@ -36,12 +36,14 @@ internal class NetworkModule {
     @Provides
     @Singleton
     @Named(OPEN_WEATHER_BASE_URL)
-    fun provideBaseUrl(applicationContext: Context): String = applicationContext.getString(R.string.base_url)
+    fun provideBaseUrl(applicationContext: Context): String =
+        applicationContext.getString(R.string.base_url)
 
     @Provides
     @Singleton
     @Named(OPEN_WEATHER_APP_ID)
-    fun provideAppId(applicationContext: Context): String = applicationContext.getString(R.string.app_id)
+    fun provideAppId(applicationContext: Context): String =
+        applicationContext.getString(R.string.app_id)
 
     @Provides
     @Singleton
@@ -58,7 +60,8 @@ internal class NetworkModule {
     @Singleton
     @Named(OPEN_WEATHER_RETROFIT)
     fun provideRetrofit(
-        @Named(OPEN_WEATHER_OKHTTP) okHttpClient: OkHttpClient, @Named(OPEN_WEATHER_BASE_URL) baseUrl: String,
+        @Named(OPEN_WEATHER_OKHTTP) okHttpClient: OkHttpClient,
+        @Named(OPEN_WEATHER_BASE_URL) baseUrl: String,
         gson: Gson
     ): Retrofit {
         return Retrofit.Builder()

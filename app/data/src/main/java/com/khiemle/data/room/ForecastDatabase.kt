@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.khiemle.data.room.models.CityKeyMap
-import com.khiemle.data.room.models.ForecastR
+import com.khiemle.data.room.models.PersistentForecast
 
 
-@Database(entities = [ForecastR::class, CityKeyMap::class], version = 1, exportSchema = false)
+@Database(entities = [PersistentForecast::class, CityKeyMap::class], version = 1, exportSchema = false)
 abstract class ForecastDatabase: RoomDatabase() {
     abstract fun forecastRDao(): ForecastRDao
     abstract fun cityKeyMapDao(): CityKeyMapDao
