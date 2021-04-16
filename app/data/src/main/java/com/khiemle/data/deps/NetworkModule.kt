@@ -1,6 +1,8 @@
 package com.khiemle.data.deps
 
+import android.content.Context
 import com.google.gson.Gson
+import com.khiemle.data.R
 import com.khiemle.data.network.IOpenWeatherApi
 import dagger.Module
 import dagger.Provides
@@ -15,6 +17,7 @@ import javax.inject.Singleton
 internal const val OPEN_WEATHER_RETROFIT = "OpenWeatherRetrofit"
 internal const val OPEN_WEATHER_OKHTTP = "OpenWeatherOkHttp"
 internal const val OPEN_WEATHER_BASE_URL = "OpenWeatherBaseUrl"
+internal const val OPEN_WEATHER_APP_ID = "OpenWeatherAppId"
 
 @Module
 internal class NetworkModule {
@@ -33,7 +36,12 @@ internal class NetworkModule {
     @Provides
     @Singleton
     @Named(OPEN_WEATHER_BASE_URL)
-    fun provideBaseUrl(): String = "https://api.openweathermap.org"
+    fun provideBaseUrl(applicationContext: Context): String = applicationContext.getString(R.string.base_url)
+
+    @Provides
+    @Singleton
+    @Named(OPEN_WEATHER_APP_ID)
+    fun provideAppId(applicationContext: Context): String = applicationContext.getString(R.string.app_id)
 
     @Provides
     @Singleton

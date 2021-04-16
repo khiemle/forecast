@@ -1,5 +1,6 @@
 package com.khiemle.data.repositories
 
+import com.khiemle.data.deps.OPEN_WEATHER_APP_ID
 import com.khiemle.data.network.IOpenWeatherApi
 import com.khiemle.data.response.CityResponse
 import com.khiemle.data.response.OpenWeatherGetDailyResponse
@@ -10,19 +11,18 @@ import com.khiemle.data.room.models.mapToForecastResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import javax.inject.Named
 
 interface IOpenWeather {
     suspend fun getDaily(
         cityName: String,
         numberDayOfForecast: Int,
-        apiKey: String,
         units: String
     ): OpenWeatherResult<OpenWeatherGetDailyResponse>
 
     suspend fun getDailyV2(
         cityName: String,
         numberDayOfForecast: Int,
-        apiKey: String,
         units: String,
         timestamp: Long
     ): Flow<OpenWeatherResult<OpenWeatherGetDailyResponse>>
@@ -30,7 +30,8 @@ interface IOpenWeather {
 
 internal class OpenWeather @Inject constructor(
     private val api: IOpenWeatherApi,
-    private val database: ForecastDatabase
+    private val database: ForecastDatabase,
+    @Named(OPEN_WEATHER_APP_ID) val appId: String
 ) : IOpenWeather {
 
     private fun getDailyLocal(
@@ -59,7 +60,6 @@ internal class OpenWeather @Inject constructor(
     override suspend fun getDaily(
         cityName: String,
         numberDayOfForecast: Int,
-        apiKey: String,
         units: String
     ): OpenWeatherResult<OpenWeatherGetDailyResponse> {
         return runNetworkSafe {
@@ -67,7 +67,7 @@ internal class OpenWeather @Inject constructor(
                 api.getDaily(
                     city = cityName,
                     days = numberDayOfForecast,
-                    appId = apiKey,
+                    appId = appId,
                     units = units
                 )
             )
@@ -77,7 +77,6 @@ internal class OpenWeather @Inject constructor(
     override suspend fun getDailyV2(
         cityName: String,
         numberDayOfForecast: Int,
-        apiKey: String,
         units: String,
         timestamp: Long
     ): Flow<OpenWeatherResult<OpenWeatherGetDailyResponse>> = flow {
@@ -94,7 +93,6 @@ internal class OpenWeather @Inject constructor(
             val listRemoteResponse: OpenWeatherResult<OpenWeatherGetDailyResponse> = getDaily(
                 cityName = cityName,
                 numberDayOfForecast = numberDayOfForecast,
-                apiKey = apiKey,
                 units = units
             )
 

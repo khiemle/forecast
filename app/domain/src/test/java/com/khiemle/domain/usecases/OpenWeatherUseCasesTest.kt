@@ -49,7 +49,6 @@ internal class OpenWeatherUseCasesTest {
             When calling repository.getDaily(
                 cityName = VALID_SEARCH_TEXT,
                 numberDayOfForecast = OpenWeatherUseCases.FIXED_COUNT,
-                apiKey = OpenWeatherUseCases.TEMP_HARD_CODE_API_KEY,
                 units = OpenWeatherUseCases.FIXED_UNITS
             ) itReturns OpenWeatherResultSuccess(openWeatherResponse)
 
@@ -66,7 +65,6 @@ internal class OpenWeatherUseCasesTest {
             When calling repository.getDaily(
                 cityName = INVALID_SEARCH_TEXT,
                 numberDayOfForecast = OpenWeatherUseCases.FIXED_COUNT,
-                apiKey = OpenWeatherUseCases.TEMP_HARD_CODE_API_KEY,
                 units = OpenWeatherUseCases.FIXED_UNITS
             ) itReturns OpenWeatherResultError(
                 exception = Throwable(),

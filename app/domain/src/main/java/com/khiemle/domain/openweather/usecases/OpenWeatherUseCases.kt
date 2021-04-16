@@ -38,7 +38,6 @@ internal class OpenWeatherUseCases @Inject constructor (private val openWeather:
         val result = openWeather.getDaily(
             cityName = query,
             numberDayOfForecast = FIXED_COUNT,
-            apiKey = TEMP_HARD_CODE_API_KEY,
             units = FIXED_UNITS
         )
         return parseResult(result)
@@ -48,7 +47,6 @@ internal class OpenWeatherUseCases @Inject constructor (private val openWeather:
         openWeather.getDailyV2(
             cityName = query,
             numberDayOfForecast = FIXED_COUNT,
-            apiKey = TEMP_HARD_CODE_API_KEY,
             units = FIXED_UNITS,
             timestamp = timestamp
         ).collect { result ->
@@ -58,7 +56,6 @@ internal class OpenWeatherUseCases @Inject constructor (private val openWeather:
 
     companion object {
         const val FIXED_COUNT = 7
-        const val TEMP_HARD_CODE_API_KEY = "60c6fbeb4b93ac653c492ba806fc346d"
         const val FIXED_UNITS = "metric"
     }
 }

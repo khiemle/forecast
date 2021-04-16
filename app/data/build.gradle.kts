@@ -1,4 +1,5 @@
 import com.khiemle.libs.Libs
+import java.util.Properties
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -9,11 +10,19 @@ android {
     compileSdkVersion(30)
     buildToolsVersion("30.0.3")
 
+    val properties = Properties()
+    properties.load(project.file("env.properties").inputStream())
+    val baseUrl = properties.getProperty("baseUrl")
+    val appId = properties.getProperty("appId")
+
     defaultConfig {
         minSdkVersion(21)
         targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
+
+        resValue(type = "string", name = "base_url", value = baseUrl )
+        resValue(type = "string", name = "app_id", value = appId )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -36,6 +45,7 @@ android {
 
 dependencies {
     implementation(Libs.Kotlin.stdlib)
+    implementation(project(":app:utilities"))
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.3.0")

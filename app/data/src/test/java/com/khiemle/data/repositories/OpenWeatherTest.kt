@@ -34,7 +34,7 @@ internal class OpenWeatherTest {
     @Before
     internal fun setUp() {
         Dispatchers.setMain(dispatcher = testDispatcher)
-        openWeather = OpenWeather(api = api, database = database)
+        openWeather = OpenWeather(api = api, database = database, appId = "api key")
     }
 
     @After
@@ -48,7 +48,7 @@ internal class OpenWeatherTest {
         testDispatcher.runBlockingTest {
             When calling api.getDaily(city = "Saigon", days = 7, appId = "api key", units = "metric") itReturns getSaigonForecastDaily()
             val expectedResult = OpenWeatherResultSuccess(getSaigonForecastDaily())
-            val actualResult = openWeather.getDaily(cityName = "Saigon", numberDayOfForecast = 7, apiKey = "api key", units = "metric")
+            val actualResult = openWeather.getDaily(cityName = "Saigon", numberDayOfForecast = 7, units = "metric")
 
             Verify on api that api.getDaily(any(), any(), any(), any()) was called
             assertTrue(ReflectionEquals(expectedResult).matches(actualResult))
@@ -61,7 +61,7 @@ internal class OpenWeatherTest {
             val responseErrorMock = Mockito.mock(ResponseBody::class.java)
             val cityNotFoundThrowable = HttpException(Response.error<Nothing>(404, responseErrorMock))
             When calling api.getDaily(city = "unknown city", days = 7, appId = "api key", units = "metric") itThrows cityNotFoundThrowable
-            val actualResult = openWeather.getDaily(cityName = "unknown city", numberDayOfForecast = 7, apiKey = "api key", units = "metric")
+            val actualResult = openWeather.getDaily(cityName = "unknown city", numberDayOfForecast = 7, units = "metric")
 
             Verify on api that api.getDaily(any(), any(), any(), any()) was called
             assertTrue(actualResult is OpenWeatherResultError)

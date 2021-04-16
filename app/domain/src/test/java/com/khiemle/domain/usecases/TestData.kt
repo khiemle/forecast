@@ -1,9 +1,6 @@
 package com.khiemle.domain.usecases
 
-import com.khiemle.data.response.ForecastResponse
-import com.khiemle.data.response.OpenWeatherGetDailyResponse
-import com.khiemle.data.response.TemperatureResponse
-import com.khiemle.data.response.WeatherResponse
+import com.khiemle.data.response.*
 import com.khiemle.domain.openweather.usecases.OpenWeatherUseCases
 
 const val TIMESTAMP_TEST = 1618286400L
@@ -16,6 +13,7 @@ const val DESCRIPTION = "weather description"
 
 internal fun getValidForeCastResponse(): OpenWeatherGetDailyResponse {
     return OpenWeatherGetDailyResponse(
+        city = CityResponse(id = 1, name = "Saigon"),
         count = "${OpenWeatherUseCases.FIXED_COUNT}",
         list = mutableListOf<ForecastResponse>().apply {
             repeat(OpenWeatherUseCases.FIXED_COUNT) {
