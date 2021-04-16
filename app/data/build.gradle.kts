@@ -55,4 +55,8 @@ dependencies {
     implementation(Libs.Network.OkHttp3.loggingInterceptor)
     implementation(Libs.Network.Retrofit2.retrofit)
     implementation(Libs.Network.Retrofit2.convertGson)
+
+    implementation(Libs.AndroidJetPack.AndroidX.Room.roomRuntime)
+    implementation(Libs.AndroidJetPack.AndroidX.Room.roomKtx)
+    kapt(Libs.AndroidJetPack.AndroidX.Room.roomCompiler)
 }

@@ -35,11 +35,13 @@ internal class ForecastItemVH(private val containerView: ItemForecastBinding) :
     RecyclerView.ViewHolder(containerView.root) {
 
     fun onBind(forecast: Forecast) {
-        containerView.tvDate.text = convertTimestampToDisplayDate(forecast.timeStamp)
-        containerView.tvAverageTemperature.text = forecast.averageTemperature
-        containerView.tvPressure.text = forecast.pressure
-        containerView.tvHumidity.text = forecast.humidity
-        containerView.tvDescription.text = forecast.description
+        containerView.apply {
+            tvDate.text = convertTimestampToDisplayDate(forecast.timeStamp)
+            tvAverageTemperature.text = forecast.averageTemperature
+            tvPressure.text = forecast.pressure
+            tvHumidity.text = forecast.humidity
+            tvDescription.text = forecast.description
+        }
     }
 
     companion object {
