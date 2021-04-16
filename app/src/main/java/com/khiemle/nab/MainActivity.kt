@@ -1,9 +1,13 @@
 package com.khiemle.nab
 
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -43,18 +47,32 @@ class MainActivity : AppCompatActivity(), IMainView {
             adapter = forecastAdapter
             addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
         }
+        binding.textInput.setOnEditorActionListener { v, actionId, _ ->
+            hideKeyboard()
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                v.text?.let { editable ->
+                    triggerSearchAction(editable)
+                }
+                true
+            } else
+            false
+        }
         binding.textInput.doAfterTextChanged {
             it?.let { editable ->
-                val content = editable.trim().toString()
-                if (content.length >= 3) {
-                    mainViewModel.searchV2(content, timestamp = getCurrentTimeInMillis() / 1000)
-                }
+                triggerSearchAction(editable)
             }
         }
 
         if (deviceInfo.isRooted) {
             val toast = Toast.makeText(this, getString(R.string.rooted_warning), Toast.LENGTH_LONG)
             toast.show()
+        }
+    }
+
+    private fun triggerSearchAction(editable: CharSequence) {
+        val content = editable.trim().toString()
+        if (content.length >= 3) {
+            mainViewModel.searchV2(content, timestamp = getCurrentTimeInMillis() / 1000)
         }
     }
 
@@ -74,5 +92,10 @@ class MainActivity : AppCompatActivity(), IMainView {
         binding.pdLoading.isVisible = true
         binding.tvMessage.isVisible = false
         forecastAdapter.submitList(listOf())
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = getSystemService<InputMethodManager>()!!
+        inputMethodManager.hideSoftInputFromWindow(binding.textInput.windowToken, HIDE_NOT_ALWAYS)
     }
 }
