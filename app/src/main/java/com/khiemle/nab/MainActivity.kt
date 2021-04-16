@@ -1,9 +1,9 @@
 package com.khiemle.nab
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -11,6 +11,7 @@ import com.khiemle.domain.openweather.entities.Forecast
 import com.khiemle.nab.databinding.ActivityMainBinding
 import com.khiemle.nab.deps.DependenciesProvider
 import com.khiemle.nab.device.DeviceInfo
+import com.khiemle.utilities.datetime.getCurrentTimeInMillis
 import com.khiemle.utilities.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity(), IMainView {
             it?.let { editable ->
                 val content = editable.trim().toString()
                 if (content.length >= 3) {
-                    mainViewModel.search(content)
+                    mainViewModel.searchV2(content, timestamp = getCurrentTimeInMillis() / 1000)
                 }
             }
         }
@@ -73,8 +74,5 @@ class MainActivity : AppCompatActivity(), IMainView {
         binding.pdLoading.isVisible = true
         binding.tvMessage.isVisible = false
         forecastAdapter.submitList(listOf())
-    }
-    private fun search(query: String) {
-        mainViewModel.search(query)
     }
 }

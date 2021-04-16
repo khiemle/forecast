@@ -5,9 +5,8 @@ import com.khiemle.domain.openweather.entities.DataResultError
 import com.khiemle.domain.openweather.entities.DataResultSuccess
 import com.khiemle.domain.openweather.entities.Forecast
 import com.khiemle.domain.openweather.usecases.IOpenWeatherUseCases
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -37,6 +36,28 @@ class MainViewModel @Inject constructor(
                     )
                 )
             }
+        }
+    }
+    fun searchV2(query: String, timestamp: Long) {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(DEBOUNCE_DURATION)
+            postValue(MainState.ShowLoading)
+            withContext(Dispatchers.IO) {
+                openWeatherUseCases.getDailyForecastV2(query, timestamp = timestamp)
+                    .collect { result ->
+                        if (result is DataResultSuccess) {
+                            postValue(MainState.Forecasts(items = result.data))
+                        } else {
+                            postValue(
+                                MainState.ShowErrorMessage(
+                                    msg = (result as DataResultError).message.orEmpty()
+                                )
+                            )
+                        }
+                    }
+            }
+
         }
     }
     companion object {

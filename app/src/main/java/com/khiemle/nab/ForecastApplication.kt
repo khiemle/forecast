@@ -13,7 +13,7 @@ import com.khiemle.nab.deps.InjectionProvider
 class ForecastApplication: Application(), DependenciesProvider {
 
     private val dataComponents: DataComponents by lazy {
-        DaggerDataComponents.builder().build()
+        DaggerDataComponents.builder().context(applicationContext).build()
     }
     private val domainComponents: DomainComponents by lazy {
         DaggerDomainComponents.builder().openWeatherRepository(dataComponents.openWeatherRepository()).build()

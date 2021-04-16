@@ -10,3 +10,12 @@ fun convertTimestampToDisplayDate(timestamp: Long) : String {
     cal.timeInMillis = timestamp
     return DateFormat.format(DISPLAY_DATE_FORMAT, cal).toString()
 }
+
+fun getCurrentTimeInMillis(): Long {
+    val now = Calendar.getInstance()
+    val hour = now[Calendar.HOUR_OF_DAY]
+    val minute = now[Calendar.MINUTE]
+    val second = now[Calendar.SECOND]
+    val millis = now[Calendar.MILLISECOND]
+    return System.currentTimeMillis() - ((hour * 24 + minute) * 60 + second) * 1000 + millis
+}
