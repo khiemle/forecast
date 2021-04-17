@@ -60,6 +60,12 @@ class MainViewModel @Inject constructor(
 
         }
     }
+
+    fun clearSearchText() {
+        searchJob?.cancel()
+        postValue(MainState.Forecasts(items = listOf()))
+    }
+
     companion object {
         const val DEBOUNCE_DURATION = 1000L
     }

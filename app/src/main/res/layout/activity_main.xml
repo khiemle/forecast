@@ -12,7 +12,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:endIconMode="clear_text"
+        app:endIconContentDescription="@string/clear_text_icon"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInput"

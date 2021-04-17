@@ -43,23 +43,29 @@ class MainActivity : AppCompatActivity(), IMainView {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mainViewModel.mainState.observe(this, MainObserver(this))
-        binding.rvDailyForecast.apply {
-            adapter = forecastAdapter
-            addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
-        }
-        binding.textInput.setOnEditorActionListener { v, actionId, _ ->
-            hideKeyboard()
-            if (actionId == EditorInfo.IME_ACTION_GO) {
-                v.text?.let { editable ->
+        with(binding) {
+            rvDailyForecast.apply {
+                adapter = forecastAdapter
+                addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
+            }
+            textInput.setOnEditorActionListener { v, actionId, _ ->
+                hideKeyboard()
+                if (actionId == EditorInfo.IME_ACTION_GO) {
+                    v.text?.let { editable ->
+                        triggerSearchAction(editable)
+                    }
+                    true
+                } else
+                    false
+            }
+            textInput.doAfterTextChanged {
+                it?.let { editable ->
                     triggerSearchAction(editable)
                 }
-                true
-            } else
-            false
-        }
-        binding.textInput.doAfterTextChanged {
-            it?.let { editable ->
-                triggerSearchAction(editable)
+            }
+            textInputLayout.setEndIconOnClickListener {
+                textInput.setText("")
+                mainViewModel.clearSearchText()
             }
         }
 

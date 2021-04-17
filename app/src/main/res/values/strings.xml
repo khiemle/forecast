@@ -8,4 +8,5 @@
     <string name="city_name">City name</string>
     <string name="search">Search</string>
     <string name="rooted_warning">"You're using Rooted device"</string>
+    <string name="clear_text_icon">Clear text icon</string>
 </resources>
