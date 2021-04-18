@@ -2,6 +2,7 @@ package com.khiemle.nab.deps
 
 import android.content.Context
 import com.khiemle.domain.openweather.usecases.IOpenWeatherUseCases
+import com.khiemle.nab.presentation.deps.ViewModelsModule
 import dagger.BindsInstance
 import dagger.Component
 

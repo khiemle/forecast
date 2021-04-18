@@ -1,4 +1,4 @@
-package com.khiemle.nab.deps
+package com.khiemle.nab.presentation.deps
 
 import androidx.lifecycle.ViewModel
 import com.khiemle.nab.presentation.MainViewModel
