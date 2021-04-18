@@ -6,6 +6,8 @@ import androidx.lifecycle.Observer
 import com.khiemle.domain.openweather.entities.DataResultError
 import com.khiemle.domain.openweather.entities.DataResultSuccess
 import com.khiemle.domain.openweather.usecases.IOpenWeatherUseCases
+import com.khiemle.nab.presentation.MainState
+import com.khiemle.nab.presentation.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -23,7 +25,6 @@ import org.mockito.Captor
 import org.mockito.Mockito.any
 import org.mockito.Mockito.verify
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 
 @ExperimentalCoroutinesApi

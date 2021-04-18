@@ -1,7 +1,7 @@
 package com.khiemle.nab.deps
 
 import androidx.lifecycle.ViewModel
-import com.khiemle.nab.MainViewModel
+import com.khiemle.nab.presentation.MainViewModel
 import com.khiemle.utilities.viewmodels.ViewModelKey
 import dagger.Binds
 import dagger.Module

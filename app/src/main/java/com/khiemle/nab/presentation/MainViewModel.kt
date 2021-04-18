@@ -1,4 +1,4 @@
-package com.khiemle.nab
+package com.khiemle.nab.presentation
 
 import androidx.lifecycle.*
 import com.khiemle.domain.openweather.entities.DataResultError

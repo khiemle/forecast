@@ -1,5 +1,8 @@
 package com.khiemle.nab
 
+import com.khiemle.nab.presentation.IMainView
+import com.khiemle.nab.presentation.MainObserver
+import com.khiemle.nab.presentation.MainState
 import org.amshove.kluent.*
 import org.junit.Before
 import org.junit.Test

@@ -1,4 +1,4 @@
-package com.khiemle.nab
+package com.khiemle.nab.presentation
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.khiemle.domain.openweather.entities.Forecast
+import com.khiemle.nab.R
 import com.khiemle.nab.databinding.ActivityMainBinding
 import com.khiemle.nab.deps.DependenciesProvider
 import com.khiemle.nab.device.DeviceInfo
