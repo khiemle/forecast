@@ -18,8 +18,13 @@ import org.amshove.kluent.itReturns
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentCaptor
+import org.mockito.Captor
 import org.mockito.Mockito.any
 import org.mockito.Mockito.verify
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+
 
 @ExperimentalCoroutinesApi
 internal class MainViewModelTest {
@@ -28,6 +33,9 @@ internal class MainViewModelTest {
     private lateinit var viewModel: MainViewModel
     private val openWeatherUseCases: IOpenWeatherUseCases = mock()
     private val observer: Observer<MainState> = mock()
+
+    @Captor
+    var captor: ArgumentCaptor<MainState.Forecasts>? = null
 
     @Before
     internal fun setUp() {
@@ -40,6 +48,7 @@ internal class MainViewModelTest {
 
                 override fun isMainThread(): Boolean = true
             })
+        captor = ArgumentCaptor.forClass(MainState.Forecasts::class.java)
         viewModel = MainViewModel(
             openWeatherUseCases = openWeatherUseCases
         )
@@ -61,9 +70,19 @@ internal class MainViewModelTest {
                 forecastResponse
             )
             viewModel.search(VALID_SEARCH_TEXT)
+            advanceUntilIdle()
             verify(observer).onChanged(MainState.ShowLoading)
             advanceUntilIdle()
             verify(observer).onChanged(any(MainState.Forecasts::class.java))
+        }
+    }
+
+    @Test
+    internal fun `observer should call be called with empty list of forecast when clear text`() {
+        testDispatcher.runBlockingTest {
+            viewModel.clearSearchText()
+            verify(observer).onChanged(captor?.capture())
+            assertEquals(true, captor?.value?.items?.isEmpty())
         }
     }
 
@@ -74,6 +93,7 @@ internal class MainViewModelTest {
                 message = DataResultError.CITY_NOT_FOUND_MESSAGE
             )
             viewModel.search(INVALID_SEARCH_TEXT)
+            advanceUntilIdle()
             verify(observer).onChanged(MainState.ShowLoading)
             advanceUntilIdle()
             verify(observer).onChanged(any(MainState.ShowErrorMessage::class.java))
