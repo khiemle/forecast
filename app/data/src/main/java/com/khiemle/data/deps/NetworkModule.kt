@@ -6,6 +6,7 @@ import com.khiemle.data.R
 import com.khiemle.data.network.IOpenWeatherApi
 import dagger.Module
 import dagger.Provides
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -48,11 +49,18 @@ internal class NetworkModule {
     @Provides
     @Singleton
     @Named(OPEN_WEATHER_OKHTTP)
-    fun provideOkHttp(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkHttp(applicationContext: Context, httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(30, TimeUnit.SECONDS)
             .connectTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor)
+            .certificatePinner(
+                certificatePinner = CertificatePinner.Builder()
+                    .add(applicationContext.getString(R.string.open_weather_pattern), applicationContext.getString(R.string.pin_cert))
+                    .add(applicationContext.getString(R.string.open_weather_pattern), applicationContext.getString(R.string.pin_cert_back_up_a))
+                    .add(applicationContext.getString(R.string.open_weather_pattern), applicationContext.getString(R.string.pin_cert_back_up_b))
+                    .build()
+            )
             .build()
     }
 
