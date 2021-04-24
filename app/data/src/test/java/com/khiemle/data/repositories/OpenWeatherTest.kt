@@ -3,7 +3,7 @@ package com.khiemle.data.repositories
 import com.google.gson.Gson
 import org.junit.After
 import org.mockito.Mockito
-import com.khiemle.data.network.IOpenWeatherApi
+import com.khiemle.data.remote.IOpenWeatherApi
 import com.khiemle.data.response.OpenWeatherGetDailyResponse
 import com.khiemle.data.room.ForecastDatabase
 import kotlinx.coroutines.Dispatchers

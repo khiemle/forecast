@@ -3,7 +3,7 @@ package com.khiemle.data.deps
 import android.content.Context
 import com.google.gson.Gson
 import com.khiemle.data.R
-import com.khiemle.data.network.IOpenWeatherApi
+import com.khiemle.data.remote.IOpenWeatherApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.CertificatePinner

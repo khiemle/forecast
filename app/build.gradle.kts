@@ -40,8 +40,9 @@ android {
 
 dependencies {
 
-    implementation(project(":app:data"))
     implementation(project(":app:domain"))
+    implementation(project(":app:data"))
+    implementation(project(":app:usecases"))
     implementation(project(":app:utilities"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
     implementation("androidx.core:core-ktx:1.3.2")

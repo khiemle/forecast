@@ -55,6 +55,9 @@ object Libs {
             const val daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:$version"
 
         }
+        object Gson {
+            const val gson = "com.google.code.gson:gson:2.8.6"
+        }
     }
 
     object AndroidJetPack {

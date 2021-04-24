@@ -1,10 +1,10 @@
 package com.khiemle.data.room.models
 
 import androidx.room.Entity
-import com.khiemle.data.response.ForecastResponse
-import com.khiemle.data.response.TemperatureResponse
-import com.khiemle.data.response.WeatherResponse
-
+import com.khiemle.data.remote.response.ForecastResponse
+import com.khiemle.data.remote.response.TemperatureResponse
+import com.khiemle.data.remote.response.WeatherResponse
+import com.khiemle.domain.models.Forecast
 
 @Entity(tableName = "forecast", primaryKeys = ["cityId", "timeStamp"])
 data class PersistentForecast(
@@ -23,9 +23,11 @@ fun PersistentForecast.mapToForecastResponse() : ForecastResponse {
         temp = TemperatureResponse(min = averageTemperature, max = averageTemperature),
         pressure = pressure,
         humidity = humidity,
-        weather = listOf(WeatherResponse(
+        weather = listOf(
+            WeatherResponse(
             description = description
-        ))
+        )
+        )
     )
 }
 
@@ -39,5 +41,15 @@ fun ForecastResponse.mapToPersistentForecast(cityId: Long): PersistentForecast {
         description = weather.joinToString() { weatherResponse ->
             weatherResponse.description
         }
+    )
+}
+
+fun PersistentForecast.mapToForecast(): Forecast {
+    return Forecast(
+        timeStamp = timeStamp,
+        averageTemperature = averageTemperature.toString(),
+        humidity = humidity.toString(),
+        pressure = pressure.toString(),
+        description = description
     )
 }

@@ -1,9 +1,9 @@
 package com.khiemle.nab.presentation
 
 import androidx.lifecycle.*
-import com.khiemle.domain.openweather.entities.DataResultError
-import com.khiemle.domain.openweather.entities.DataResultSuccess
-import com.khiemle.domain.openweather.entities.Forecast
+import com.khiemle.domain.models.DataResultError
+import com.khiemle.domain.models.DataResultSuccess
+import com.khiemle.domain.models.Forecast
 import com.khiemle.domain.openweather.usecases.IOpenWeatherUseCases
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
@@ -21,23 +21,6 @@ class MainViewModel @Inject constructor(
     }
     private var searchJob: Job? = null
 
-    fun search(query: String) {
-        searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            delay(DEBOUNCE_DURATION)
-            postValue(MainState.ShowLoading)
-            val result = openWeatherUseCases.getDailyForecast(query)
-            if (result is DataResultSuccess) {
-                postValue(MainState.Forecasts(items = result.data))
-            } else {
-                postValue(
-                    MainState.ShowErrorMessage(
-                        msg = (result as DataResultError).message.orEmpty()
-                    )
-                )
-            }
-        }
-    }
     fun searchV2(query: String, timestamp: Long) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
