@@ -91,4 +91,8 @@ dependencies {
 
     implementation(Libs.RootBeer.rootBeer)
 
+    implementation(Libs.AndroidJetPack.AndroidX.Room.roomRuntime)
+    implementation(Libs.AndroidJetPack.AndroidX.Room.roomKtx)
+    kapt(Libs.AndroidJetPack.AndroidX.Room.roomCompiler)
+
 }

@@ -1,10 +1,10 @@
-package com.khiemle.data.room
+package com.khiemle.nab.framework.room
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.khiemle.data.room.models.CityKeyMap
+import com.khiemle.nab.framework.room.models.CityKeyMap
 
 @Dao
 interface CityKeyMapDao {

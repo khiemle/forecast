@@ -1,13 +1,11 @@
 package com.khiemle.data.repositories
 
 import com.khiemle.data.deps.OPEN_WEATHER_APP_ID
+import com.khiemle.data.local.IOpenWeatherLocal
+import com.khiemle.data.mapper.mapToForecast
 import com.khiemle.data.mapper.parseResult
 import com.khiemle.data.remote.IOpenWeatherApi
 import com.khiemle.data.remote.response.GetDailyApiResponse
-import com.khiemle.data.room.ForecastDatabase
-import com.khiemle.data.room.models.CityKeyMap
-import com.khiemle.data.room.models.mapToForecast
-import com.khiemle.data.room.models.mapToPersistentForecast
 import com.khiemle.domain.models.DataResult
 import com.khiemle.domain.models.DataResultSuccess
 import com.khiemle.domain.models.Forecast
@@ -39,7 +37,7 @@ interface IOpenWeather {
 
 internal class OpenWeather @Inject constructor(
     private val api: IOpenWeatherApi,
-    private val database: ForecastDatabase,
+    private val local: IOpenWeatherLocal?,
     @Named(OPEN_WEATHER_APP_ID) val appId: String
 ) : IOpenWeather {
 
@@ -48,15 +46,7 @@ internal class OpenWeather @Inject constructor(
         numberDayOfForecast: Int,
         timestamp: Long
     ): List<Forecast>? {
-        val cacheForecast = database.forecastRDao().loadAllForecasts(
-            searchKey = cityName,
-            timestamp = timestamp,
-            count = numberDayOfForecast
-        )
-        if (cacheForecast.isNullOrEmpty().not() && cacheForecast.size == numberDayOfForecast) {
-            return cacheForecast.map { it.mapToForecast() }
-        }
-        return null
+        return local?.getForecastDailyLocal(cityName, numberDayOfForecast, timestamp)
     }
 
     override suspend fun getDaily(
@@ -98,18 +88,20 @@ internal class OpenWeather @Inject constructor(
                 units = units
             )
 
-            if (listRemoteApiResponse is OpenWeatherResultSuccess) {
-                val cacheList =
-                    listRemoteApiResponse.data.list.map { it.mapToPersistentForecast(listRemoteApiResponse.data.city.id) }
-                database.forecastRDao().insertForecasts(cacheList)
-                database.cityKeyMapDao().insertCityKeyMap(
-                    CityKeyMap(
-                        cityId = cacheList.first().cityId,
+            local?.let {
+                if (listRemoteApiResponse is OpenWeatherResultSuccess) {
+                    val cacheList =
+                        listRemoteApiResponse.data.list.map { it.mapToForecast() }
+                    val cityId = listRemoteApiResponse.data.city.id
+                    local.saveForecastDailyLocal(
+                        cityId = cityId,
                         query = cityName,
-                        timestamp = timestamp
+                        timestamp = timestamp,
+                        forecasts = cacheList
                     )
-                )
+                }
             }
+
             emit(parseResult(listRemoteApiResponse))
         }
 

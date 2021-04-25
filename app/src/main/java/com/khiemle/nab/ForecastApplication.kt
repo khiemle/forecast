@@ -10,8 +10,14 @@ import com.khiemle.nab.deps.AppComponents
 import com.khiemle.nab.deps.DaggerAppComponents
 import com.khiemle.nab.deps.DependenciesProvider
 import com.khiemle.nab.deps.InjectionProvider
+import com.khiemle.nab.framework.room.deps.DaggerFrameworkComponents
+import com.khiemle.nab.framework.room.deps.FrameworkComponents
 
-class ForecastApplication: Application(), DependenciesProvider {
+class ForecastApplication : Application(), DependenciesProvider {
+
+    private val frameworkComponents: FrameworkComponents by lazy {
+        DaggerFrameworkComponents.builder().context(applicationContext).build()
+    }
 
     private val dataComponents: DataComponents by lazy {
         val appConfigs = AppConfigs(
@@ -22,14 +28,17 @@ class ForecastApplication: Application(), DependenciesProvider {
             pinCertSHABackupA = applicationContext.getString(R.string.pin_cert_back_up_a),
             pinCertSHABackupB = applicationContext.getString(R.string.pin_cert_back_up_b)
         )
-        DaggerDataComponents.builder().appConfigs(appConfigs).context(applicationContext).build()
+        DaggerDataComponents.builder().appConfigs(appConfigs)
+            .openWeatherLocalDatabase(frameworkComponents.openWeatherLocalDatabase()).build()
     }
     private val domainComponents: DomainComponents by lazy {
-        DaggerDomainComponents.builder().openWeatherRepository(dataComponents.openWeatherRepository()).build()
+        DaggerDomainComponents.builder()
+            .openWeatherRepository(dataComponents.openWeatherRepository()).build()
     }
 
     private val appComponents: AppComponents by lazy {
-        DaggerAppComponents.builder().context(applicationContext).openWeatherUseCases(domainComponents.openWeatherUseCases()).build()
+        DaggerAppComponents.builder().context(applicationContext)
+            .openWeatherUseCases(domainComponents.openWeatherUseCases()).build()
     }
 
     override fun provideInjectionProvider(): InjectionProvider = appComponents

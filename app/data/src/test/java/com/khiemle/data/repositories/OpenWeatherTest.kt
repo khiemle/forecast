@@ -5,7 +5,7 @@ import org.junit.After
 import org.mockito.Mockito
 import com.khiemle.data.remote.IOpenWeatherApi
 import com.khiemle.data.remote.response.GetDailyApiResponse
-import com.khiemle.data.room.ForecastDatabase
+import com.khiemle.nab.framework.room.ForecastDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -27,7 +27,7 @@ internal class OpenWeatherTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
     private val api: IOpenWeatherApi = Mockito.mock(IOpenWeatherApi::class.java)
-    private val database: ForecastDatabase = Mockito.mock(ForecastDatabase::class.java)
+    private val database: com.khiemle.nab.framework.room.ForecastDatabase = Mockito.mock(com.khiemle.nab.framework.room.ForecastDatabase::class.java)
     private lateinit var openWeather: OpenWeather
     private val gson = Gson()
 

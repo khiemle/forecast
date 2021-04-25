@@ -1,5 +1,6 @@
 package com.khiemle.data.mapper
 
+import com.khiemle.data.remote.response.ForecastResponse
 import com.khiemle.data.remote.response.GetDailyApiResponse
 import com.khiemle.data.remote.response.TemperatureResponse
 import com.khiemle.data.repositories.OpenWeatherResult
@@ -27,18 +28,20 @@ internal fun parseResult(result: OpenWeatherResult<GetDailyApiResponse>): DataRe
     return DataResultSuccess(mapResponseDataToEntity((result as OpenWeatherResultSuccess).data))
 }
 
+fun ForecastResponse.mapToForecast(): Forecast {
+    return Forecast(
+        timeStamp = dt * 1000,
+        averageTemperature = convertTemperatureToDisplayTemperature(temp),
+        humidity = "${humidity}$HUMIDITY_SIGN",
+        pressure = "$pressure",
+        description = weather.joinToString(separator = DESCRIPTION_SEPARATOR) { weatherResponse ->
+            weatherResponse.description
+        }
+    )
+}
+
 fun mapResponseDataToEntity(apiResponseData: GetDailyApiResponse): List<Forecast> {
-    return apiResponseData.list.map { forecastResponse ->
-        Forecast(
-            timeStamp = forecastResponse.dt * 1000,
-            averageTemperature = convertTemperatureToDisplayTemperature(forecastResponse.temp),
-            humidity = "${forecastResponse.humidity}$HUMIDITY_SIGN",
-            pressure = "${forecastResponse.pressure}",
-            description = forecastResponse.weather.joinToString(separator = DESCRIPTION_SEPARATOR) { weatherResponse ->
-                weatherResponse.description
-            }
-        )
-    }
+    return apiResponseData.list.map { it.mapToForecast() }
 }
 
 internal fun convertTemperatureToDisplayTemperature(temperatureResponse: TemperatureResponse) : String {

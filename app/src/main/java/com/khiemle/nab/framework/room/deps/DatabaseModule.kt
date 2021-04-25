@@ -1,7 +1,8 @@
-package com.khiemle.data.deps
+package com.khiemle.nab.framework.room
 
 import android.content.Context
-import com.khiemle.data.room.ForecastDatabase
+import com.khiemle.data.local.IOpenWeatherLocal
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -9,8 +10,13 @@ import javax.inject.Singleton
 @Module
 class DatabaseModule {
     @Provides
-    @Singleton
     fun provideForecastDatabase(applicationContext: Context): ForecastDatabase {
         return ForecastDatabase.buildDatabase(applicationContext)
     }
+}
+
+@Module
+abstract class LocalDataSourceModule {
+    @Binds
+    abstract fun provideForecastDatabase(o: OpenWeatherLocal): IOpenWeatherLocal
 }

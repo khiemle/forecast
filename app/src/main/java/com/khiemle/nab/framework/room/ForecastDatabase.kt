@@ -1,11 +1,11 @@
-package com.khiemle.data.room
+package com.khiemle.nab.framework.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.khiemle.data.room.models.CityKeyMap
-import com.khiemle.data.room.models.PersistentForecast
+import com.khiemle.nab.framework.room.models.CityKeyMap
+import com.khiemle.nab.framework.room.models.PersistentForecast
 
 
 @Database(entities = [PersistentForecast::class, CityKeyMap::class], version = 1, exportSchema = false)
