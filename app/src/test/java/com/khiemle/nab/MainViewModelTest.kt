@@ -3,13 +3,14 @@ package com.khiemle.nab
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor
 import androidx.lifecycle.Observer
-import com.khiemle.domain.openweather.entities.DataResultError
-import com.khiemle.domain.openweather.entities.DataResultSuccess
+import com.khiemle.domain.models.DataResultError
+import com.khiemle.domain.models.DataResultSuccess
 import com.khiemle.domain.openweather.usecases.IOpenWeatherUseCases
 import com.khiemle.nab.presentation.MainState
 import com.khiemle.nab.presentation.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
@@ -51,7 +52,8 @@ internal class MainViewModelTest {
             })
         captor = ArgumentCaptor.forClass(MainState.Forecasts::class.java)
         viewModel = MainViewModel(
-            openWeatherUseCases = openWeatherUseCases
+            openWeatherUseCases = openWeatherUseCases,
+            dispatcher = testDispatcher
         )
         viewModel.mainState.observeForever(observer)
     }
@@ -67,10 +69,17 @@ internal class MainViewModelTest {
     internal fun `observer should call be called with list of forecast when pass valid city`() {
         testDispatcher.runBlockingTest {
             val forecastResponse = getValidForeCast()
-            When calling openWeatherUseCases.getDailyForecast(VALID_SEARCH_TEXT) itReturns DataResultSuccess(
-                forecastResponse
-            )
-            viewModel.search(VALID_SEARCH_TEXT)
+            When calling openWeatherUseCases.getDailyForecastV2(
+                VALID_SEARCH_TEXT,
+                timestamp = 100L
+            ) itReturns flow {
+                emit(
+                    DataResultSuccess(
+                        forecastResponse
+                    )
+                )
+            }
+            viewModel.searchV2(VALID_SEARCH_TEXT, timestamp = 100L)
             advanceUntilIdle()
             verify(observer).onChanged(MainState.ShowLoading)
             advanceUntilIdle()
@@ -90,10 +99,12 @@ internal class MainViewModelTest {
     @Test
     internal fun `observer should call be called with error when pass invalid city`() {
         testDispatcher.runBlockingTest {
-            When calling openWeatherUseCases.getDailyForecast(INVALID_SEARCH_TEXT) itReturns DataResultError(
-                message = DataResultError.CITY_NOT_FOUND_MESSAGE
-            )
-            viewModel.search(INVALID_SEARCH_TEXT)
+            When calling openWeatherUseCases.getDailyForecastV2(INVALID_SEARCH_TEXT, timestamp = 100L) itReturns flow {
+                emit(DataResultError(
+                    message = DataResultError.CITY_NOT_FOUND_MESSAGE
+                ))
+            }
+            viewModel.searchV2(INVALID_SEARCH_TEXT, timestamp = 100L)
             advanceUntilIdle()
             verify(observer).onChanged(MainState.ShowLoading)
             advanceUntilIdle()

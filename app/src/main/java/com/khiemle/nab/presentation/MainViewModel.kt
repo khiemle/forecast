@@ -5,12 +5,15 @@ import com.khiemle.domain.models.DataResultError
 import com.khiemle.domain.models.DataResultSuccess
 import com.khiemle.domain.models.Forecast
 import com.khiemle.domain.openweather.usecases.IOpenWeatherUseCases
+import com.khiemle.nab.deps.IO_DISPATCHER
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
+import javax.inject.Named
 
 class MainViewModel @Inject constructor(
     private val openWeatherUseCases: IOpenWeatherUseCases,
+    @Named(IO_DISPATCHER) private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
     private val _mainState = MutableLiveData<MainState>()
     val mainState: LiveData<MainState>
@@ -19,6 +22,7 @@ class MainViewModel @Inject constructor(
     private fun postValue(state: MainState) {
         _mainState.postValue(state)
     }
+
     private var searchJob: Job? = null
 
     fun searchV2(query: String, timestamp: Long) {
@@ -26,7 +30,7 @@ class MainViewModel @Inject constructor(
         searchJob = viewModelScope.launch {
             delay(DEBOUNCE_DURATION)
             postValue(MainState.ShowLoading)
-            withContext(Dispatchers.IO) {
+            withContext(dispatcher) {
                 openWeatherUseCases.getDailyForecastV2(query, timestamp = timestamp)
                     .collect { result ->
                         if (result is DataResultSuccess) {
