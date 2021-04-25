@@ -1,8 +1,6 @@
 package com.khiemle.data.deps
 
-import android.content.Context
 import com.google.gson.Gson
-import com.khiemle.data.R
 import com.khiemle.data.remote.IOpenWeatherApi
 import dagger.Module
 import dagger.Provides
@@ -37,28 +35,27 @@ internal class NetworkModule {
     @Provides
     @Singleton
     @Named(OPEN_WEATHER_BASE_URL)
-    fun provideBaseUrl(applicationContext: Context): String =
-        applicationContext.getString(R.string.base_url)
+    fun provideBaseUrl(appConfigs: AppConfigs): String = appConfigs.baseUrl
+
 
     @Provides
     @Singleton
     @Named(OPEN_WEATHER_APP_ID)
-    fun provideAppId(applicationContext: Context): String =
-        applicationContext.getString(R.string.app_id)
+    fun provideAppId(appConfigs: AppConfigs): String = appConfigs.appId
 
     @Provides
     @Singleton
     @Named(OPEN_WEATHER_OKHTTP)
-    fun provideOkHttp(applicationContext: Context, httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkHttp(appConfigs: AppConfigs, httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(30, TimeUnit.SECONDS)
             .connectTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor)
             .certificatePinner(
                 certificatePinner = CertificatePinner.Builder()
-                    .add(applicationContext.getString(R.string.open_weather_pattern), applicationContext.getString(R.string.pin_cert))
-                    .add(applicationContext.getString(R.string.open_weather_pattern), applicationContext.getString(R.string.pin_cert_back_up_a))
-                    .add(applicationContext.getString(R.string.open_weather_pattern), applicationContext.getString(R.string.pin_cert_back_up_b))
+                    .add(appConfigs.openWeatherDomain, appConfigs.pinCertSHA)
+                    .add(appConfigs.openWeatherDomain, appConfigs.pinCertSHABackupA)
+                    .add(appConfigs.openWeatherDomain, appConfigs.pinCertSHABackupB)
                     .build()
             )
             .build()

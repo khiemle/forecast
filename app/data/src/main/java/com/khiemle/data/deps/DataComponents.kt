@@ -16,6 +16,10 @@ interface DataComponents: DataDependenciesProvider {
     interface Builder {
         @BindsInstance
         fun context(context: Context): Builder
+
+        @BindsInstance
+        fun appConfigs(appConfigs: AppConfigs): Builder
+
         fun build(): DataComponents
     }
 }

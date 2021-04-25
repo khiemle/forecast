@@ -1,4 +1,5 @@
 import com.khiemle.libs.Libs
+import java.util.Properties
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -13,6 +14,16 @@ android {
         viewBinding = true
     }
 
+    val properties = Properties()
+    properties.load(project.file("env.properties").inputStream())
+    val baseUrl = properties.getProperty("baseUrl")
+    val appId = properties.getProperty("appId")
+    val openWeatherPattern = properties.getProperty("openWeatherPattern")
+    val pinCert = properties.getProperty("pinCert")
+    val pinCertBackUpA = properties.getProperty("pinCertBackUpA")
+    val pinCertBackUpB = properties.getProperty("pinCertBackUpB")
+
+
     defaultConfig {
         applicationId = "com.khiemle.nab"
         minSdkVersion(21)
@@ -21,6 +32,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        resValue(type = "string", name = "base_url", value = baseUrl )
+        resValue(type = "string", name = "app_id", value = appId )
+
+        resValue(type = "string", name = "open_weather_pattern", value = openWeatherPattern )
+        resValue(type = "string", name = "pin_cert", value = pinCert )
+        resValue(type = "string", name = "pin_cert_back_up_a", value = pinCertBackUpA )
+        resValue(type = "string", name = "pin_cert_back_up_b", value = pinCertBackUpB )
     }
 
     buildTypes {
