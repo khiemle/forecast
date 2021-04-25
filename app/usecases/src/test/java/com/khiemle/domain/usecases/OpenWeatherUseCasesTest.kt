@@ -1,14 +1,14 @@
 package com.khiemle.domain.usecases
 
 import com.khiemle.data.repositories.IOpenWeather
-import com.khiemle.data.repositories.OpenWeatherResultError
-import com.khiemle.data.repositories.OpenWeatherResultSuccess
-import com.khiemle.domain.openweather.entities.CityNotFoundError
-import com.khiemle.domain.openweather.entities.DataResultError
-import com.khiemle.domain.openweather.entities.DataResultSuccess
+import com.khiemle.domain.models.CityNotFoundError
+import com.khiemle.domain.models.DataResultError
+import com.khiemle.domain.models.DataResultSuccess
 import com.khiemle.domain.openweather.usecases.OpenWeatherUseCases
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
@@ -46,33 +46,51 @@ internal class OpenWeatherUseCasesTest {
     internal fun `should return list of forecast when passing valid search text`() {
         testDispatcher.runBlockingTest {
             val openWeatherResponse = getValidForeCastResponse()
-            When calling repository.getDaily(
+            When calling repository.getDailyV2(
                 cityName = VALID_SEARCH_TEXT,
                 numberDayOfForecast = OpenWeatherUseCases.FIXED_COUNT,
-                units = OpenWeatherUseCases.FIXED_UNITS
-            ) itReturns OpenWeatherResultSuccess(openWeatherResponse)
+                units = OpenWeatherUseCases.FIXED_UNITS,
+                timestamp = 100L
+            ) itReturns flow { emit(DataResultSuccess(data = openWeatherResponse)) }
 
-            val result = useCases.getDailyForecast(VALID_SEARCH_TEXT)
-            assertTrue(result is DataResultSuccess)
-            assertEquals(OpenWeatherUseCases.FIXED_COUNT, result.data.size)
-            assertEquals(DESCRIPTION, result.data.first().description)
+            When calling repository.getDailyLocal(
+                cityName = VALID_SEARCH_TEXT,
+                numberDayOfForecast = OpenWeatherUseCases.FIXED_COUNT,
+                timestamp = 100L
+            ) itReturns listOf()
+
+            val flowData = useCases.getDailyForecastV2(VALID_SEARCH_TEXT, timestamp = 100L)
+            val result = flowData.first()
+            assertTrue(result is DataResultSuccess<*>)
+            assertTrue(result.data is List<*>)
+            assertEquals(OpenWeatherUseCases.FIXED_COUNT, (result.data as List<*>).size)
         }
     }
 
     @Test
     internal fun `should return error when passing invalid search text`() {
         testDispatcher.runBlockingTest {
-            When calling repository.getDaily(
+            When calling repository.getDailyV2(
                 cityName = INVALID_SEARCH_TEXT,
                 numberDayOfForecast = OpenWeatherUseCases.FIXED_COUNT,
-                units = OpenWeatherUseCases.FIXED_UNITS
-            ) itReturns OpenWeatherResultError(
-                exception = Throwable(),
-                message = DataResultError.CITY_NOT_FOUND_MESSAGE,
-                code = DataResultError.NOT_FOUND_CITY_CODE
-            )
+                units = OpenWeatherUseCases.FIXED_UNITS,
+                timestamp = 100L
+            ) itReturns flow {
+                emit(
+                    CityNotFoundError(
+                        code = DataResultError.NOT_FOUND_CITY_CODE
+                    )
+                )
+            }
 
-            val result = useCases.getDailyForecast(INVALID_SEARCH_TEXT)
+            When calling repository.getDailyLocal(
+                cityName = INVALID_SEARCH_TEXT,
+                numberDayOfForecast = OpenWeatherUseCases.FIXED_COUNT,
+                timestamp = 100L
+            ) itReturns listOf()
+
+            val flowData = useCases.getDailyForecastV2(INVALID_SEARCH_TEXT, timestamp = 100L)
+            val result = flowData.first()
             assertTrue(result is CityNotFoundError)
             assertEquals(DataResultError.NOT_FOUND_CITY_CODE, result.code)
             assertEquals(DataResultError.CITY_NOT_FOUND_MESSAGE, result.message)

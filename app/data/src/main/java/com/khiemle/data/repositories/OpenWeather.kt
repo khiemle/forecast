@@ -29,6 +29,12 @@ interface IOpenWeather {
         units: String,
         timestamp: Long
     ): Flow<DataResult<List<Forecast>>>
+
+    fun getDailyLocal(
+        cityName: String,
+        numberDayOfForecast: Int,
+        timestamp: Long
+    ): List<Forecast>?
 }
 
 internal class OpenWeather @Inject constructor(
@@ -37,7 +43,7 @@ internal class OpenWeather @Inject constructor(
     @Named(OPEN_WEATHER_APP_ID) val appId: String
 ) : IOpenWeather {
 
-    private fun getDailyLocal(
+    override fun getDailyLocal(
         cityName: String,
         numberDayOfForecast: Int,
         timestamp: Long

@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import org.junit.After
 import org.mockito.Mockito
 import com.khiemle.data.remote.IOpenWeatherApi
-import com.khiemle.data.response.OpenWeatherGetDailyResponse
+import com.khiemle.data.remote.response.GetDailyApiResponse
 import com.khiemle.data.room.ForecastDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -69,7 +69,7 @@ internal class OpenWeatherTest {
         }
     }
 
-    private fun getSaigonForecastDaily(): OpenWeatherGetDailyResponse {
-        return gson.fromJson(saigonForecastDailyData, OpenWeatherGetDailyResponse::class.java)
+    private fun getSaigonForecastDaily(): GetDailyApiResponse {
+        return gson.fromJson(saigonForecastDailyData, GetDailyApiResponse::class.java)
     }
 }
