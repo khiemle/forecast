@@ -1,32 +1,49 @@
 # Forecast Application
 
-## Project's Architecture Approaching
+## Project's Architecture Approaching 
 
-- The scope of this is small, It's just display the forecast of the current searching city, but it can be scaled bigger so MVVM is good choice for this
-- The data layer will take role:
+- ![Architecture](./Android-Clean-Architecture.png)
+
+- ![Project's layers](./Layers-2.png)
+
+- The scope of this is small, It's just display the forecast of the current searching city, but it can be scaled bigger so Clean Architecture and MVVM is good choice for this
+
+- The `Domain` layer 
+    * Contain business models
+- The `Data` layer will take role:
     * Request remote data by use retrofit 
-    * Caching the remote data to Room database
-    * The Open repository loads data (in flow data) from SQLite if it available, if not, it fetch remote data and caches to SQLite by Room
-    * Doesn't relate to domain layer
-- The domain layer will take role:
-    * Handles business logic. The business logic here are: query 7 days forecast from current time, using celsius unit
-    * Maps the data from data layer to the Entity which gonna use by business logic (Here is the display purpose in UI)
+    * Receive the `Caching` dependency from `Framework layer` 
+    * The Open repository loads data (in flow data) from `Caching` if it available, if not, it fetch remote data and caches by `Caching`
+    * Maps the data model to the business model from domain
+- The `UseCases` layer will take role:
+    * Handles user's interaction logic: query 7 days forecast from current time, using celsius unit
     * Depend on Data layer's Interface (Here is IOpenWeather repository, the concrete class OpenWeather only available in data layer)
     * Doesn't relate to UI layer
- - The presentation layer:
+ - The `Framework` layer will take role:
+    * Implement Caching abstraction from `Data` by using Android Room 
+ - The `Presentation` layer: apply `MVVM` architecture 
     * MainActivity's implementing IMainView
-    * ViewModel Handle data was taken from domain layer, publish the data stream, notify observer to change the UI
+    * ViewModel Handle data was taken from UseCases layer, publish the data stream, notify observer to change the UI
     * The Observer of ViewModel's taking the IMainView interface as dependency, show it's testable
  - Dependencies Injection's handled by using Dagger
-    - DataComponents will provides/bind the dependencies instance which are supported in graph,they're `NetworkModule`, `OpenWeatherModule`, `DatabaseModule` of data layer. It's taking the `Context` as itself dependency
-    - DomainComponents will provides/bind the dependencies instance which are supported in graph,it's `DomainUseCasesModule`  of data layer. It's taking `IOpenWeather` as its dependency
-    - AppComponents  will provides/bind the dependencies instance which are supported in graph,they're `CommonMudule`, `ViewModelModules`  of data layer. It's taking `IOpenWeatherUseCases` and `Context` as its dependency
+    - `DataComponents` will provides/bind the dependencies instance which are supported in graph,they're `NetworkModule`, `OpenWeatherModule`, `DatabaseModule` of data layer. It's taking the `Context` as itself dependency
+    - `UseCasesComponents` will provides/bind the dependencies instance which are supported in graph,it's `UseCasesModule`  of data layer. It's taking `IOpenWeather` as its dependency
+    - `FrameworkComponents` will bind the implementation of `Caching` abstraction from `Data` layer
+    - `AppComponents`  will provides/bind the dependencies instance which are supported in graph,they're `CommonMudule`, `ViewModelModules`  of data layer. It's taking `IOpenWeatherUseCases` and `Context` as its dependency
     - `ForecastApplication` ints and links all of Components, it will be the Dependencies Holder `DependenciesProvider` and provide Injector `InjectionProvider`
     
 ## Project code structure
  - Project structure
- - ![Android project type](./project_structure.png)
- 
+  1. Contains 4 modules:
+    - domain: Domain layer
+    - data: Data layer
+    - usecases: Usecases layer
+    - utilities: Utilities for project
+   2. App:
+    - Resources
+    - `framework` package: framework layer
+    - `presentation` package: presentation layer
+    - `ForecastApplication`'s holding dependencies from layers, be a Dependencies Holder and Injector
  
 ## Install
 - Run app adhoc from Android studio
@@ -45,11 +62,14 @@ Unit test result for
 
 [OpenWeatherErrorParser test](https://github.com/khiemle/forecast/blob/master/app/data/src/test/java/com/khiemle/data/repositories/OpenWeatherErrorParserTest.kt)
 [OpenWeather test](https://github.com/khiemle/forecast/blob/master/app/data/src/test/java/com/khiemle/data/repositories/OpenWeatherTest.kt)
-[ForecastDatabase test](https://github.com/khiemle/forecast/blob/master/app/data/src/androidTest/java/com/khiemle/data/room/ForecastDatabaseTest.kt)
 
-- Domain layer
+- UseCases layer
 
-[OpenWeatherUseCases test](https://github.com/khiemle/forecast/blob/master/app/domain/src/test/java/com/khiemle/domain/usecases/OpenWeatherUseCasesTest.kt)
+[OpenWeatherUseCases test](https://github.com/khiemle/forecast/blob/master/app/usecases/src/test/java/com/khiemle/usecases/usecases/OpenWeatherUseCasesTest.kt)
+
+- Framework layer
+
+[ForecastDatabase test](https://github.com/khiemle/forecast/blob/master/app/src/androidTest/java/com/khiemle/nab/framework/room/ForecastDatabaseTest.kt)
 
 - Presentation layer and app
 
