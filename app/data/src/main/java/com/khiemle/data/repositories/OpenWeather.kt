@@ -6,9 +6,9 @@ import com.khiemle.data.mapper.mapToForecast
 import com.khiemle.data.mapper.parseResult
 import com.khiemle.data.remote.IOpenWeatherApi
 import com.khiemle.data.remote.response.GetDailyApiResponse
-import com.khiemle.domain.models.DataResult
-import com.khiemle.domain.models.DataResultSuccess
-import com.khiemle.domain.models.Forecast
+import com.khiemle.usecases.models.DataResult
+import com.khiemle.usecases.models.DataResultSuccess
+import com.khiemle.usecases.models.Forecast
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

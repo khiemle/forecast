@@ -1,10 +1,10 @@
 package com.khiemle.nab.presentation
 
 import androidx.lifecycle.*
-import com.khiemle.domain.models.DataResultError
-import com.khiemle.domain.models.DataResultSuccess
-import com.khiemle.domain.models.Forecast
-import com.khiemle.domain.openweather.usecases.IOpenWeatherUseCases
+import com.khiemle.usecases.models.DataResultError
+import com.khiemle.usecases.models.DataResultSuccess
+import com.khiemle.usecases.models.Forecast
+import com.khiemle.usecases.openweather.usecases.IOpenWeatherUseCases
 import com.khiemle.nab.deps.IO_DISPATCHER
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect

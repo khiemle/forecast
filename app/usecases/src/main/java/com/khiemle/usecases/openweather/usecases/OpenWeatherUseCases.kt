@@ -1,8 +1,8 @@
-package com.khiemle.domain.openweather.usecases
+package com.khiemle.usecases.openweather.usecases
 
 import com.khiemle.data.repositories.IOpenWeather
-import com.khiemle.domain.models.DataResult
-import com.khiemle.domain.models.Forecast
+import com.khiemle.usecases.models.DataResult
+import com.khiemle.usecases.models.Forecast
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow

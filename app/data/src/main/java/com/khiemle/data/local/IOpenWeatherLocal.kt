@@ -1,6 +1,6 @@
 package com.khiemle.data.local
 
-import com.khiemle.domain.models.Forecast
+import com.khiemle.usecases.models.Forecast
 
 interface IOpenWeatherLocal {
     fun getForecastDailyLocal(

@@ -1,7 +1,7 @@
 package com.khiemle.nab.framework.room
 
 import com.khiemle.data.local.IOpenWeatherLocal
-import com.khiemle.domain.models.Forecast
+import com.khiemle.usecases.models.Forecast
 import com.khiemle.nab.framework.room.models.CityKeyMap
 import com.khiemle.nab.framework.room.models.mapToForecast
 import com.khiemle.nab.framework.room.models.mapToPersistentForecast

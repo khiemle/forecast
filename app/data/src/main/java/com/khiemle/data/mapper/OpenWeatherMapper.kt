@@ -6,7 +6,7 @@ import com.khiemle.data.remote.response.TemperatureResponse
 import com.khiemle.data.repositories.OpenWeatherResult
 import com.khiemle.data.repositories.OpenWeatherResultError
 import com.khiemle.data.repositories.OpenWeatherResultSuccess
-import com.khiemle.domain.models.*
+import com.khiemle.usecases.models.*
 
 internal const val CELSIUS_CHAR = "\u2103"
 internal const val DESCRIPTION_SEPARATOR = ", "

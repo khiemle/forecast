@@ -1,4 +1,4 @@
-package com.khiemle.data.room
+package com.khiemle.nab.framework.room
 
 import android.content.Context
 import androidx.room.Room
@@ -16,15 +16,15 @@ import org.junit.Assert.*
 @RunWith(AndroidJUnit4::class)
 class ForecastDatabaseTest {
 
-    private lateinit var forecastRDao: com.khiemle.nab.framework.room.ForecastRDao
-    private lateinit var cityKeyMapDao: com.khiemle.nab.framework.room.CityKeyMapDao
-    private lateinit var db: com.khiemle.nab.framework.room.ForecastDatabase
+    private lateinit var forecastRDao: ForecastRDao
+    private lateinit var cityKeyMapDao: CityKeyMapDao
+    private lateinit var db: ForecastDatabase
 
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         db = Room.inMemoryDatabaseBuilder(
-            context, com.khiemle.nab.framework.room.ForecastDatabase::class.java).build()
+            context, ForecastDatabase::class.java).build()
         forecastRDao = db.forecastRDao()
         cityKeyMapDao = db.cityKeyMapDao()
     }
@@ -38,7 +38,7 @@ class ForecastDatabaseTest {
     @Test
     @Throws(Exception::class)
     fun writeForecastSearchKeyAndQueryInList() {
-        val forecastR = com.khiemle.nab.framework.room.models.PersistentForecast(
+        val forecastR = PersistentForecast(
             cityId = 1,
             timeStamp = 1000L,
             averageTemperature = 30.toDouble(),
@@ -46,7 +46,7 @@ class ForecastDatabaseTest {
             humidity = 70,
             description = "rain"
         )
-        val oldForecastR = com.khiemle.nab.framework.room.models.PersistentForecast(
+        val oldForecastR = PersistentForecast(
             cityId = 2,
             timeStamp = 200L,
             averageTemperature = 16.toDouble(),
@@ -54,7 +54,7 @@ class ForecastDatabaseTest {
             humidity = 80,
             description = "sunny"
         )
-        val cityKeyMap = com.khiemle.nab.framework.room.models.CityKeyMap(
+        val cityKeyMap = CityKeyMap(
             cityId = 1,
             timestamp = 1000L,
             query = "saigon"

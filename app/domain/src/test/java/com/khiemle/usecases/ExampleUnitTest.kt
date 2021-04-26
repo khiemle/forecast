@@ -1,4 +1,4 @@
-package com.khiemle.domain
+package com.khiemle.usecases
 
 import org.junit.Test
 

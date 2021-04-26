@@ -1,14 +1,14 @@
-package com.khiemle.domain.openweather.deps
+package com.khiemle.usecases.openweather.deps
 
 import com.khiemle.data.repositories.IOpenWeather
-import com.khiemle.domain.openweather.usecases.IOpenWeatherUseCases
+import com.khiemle.usecases.openweather.usecases.IOpenWeatherUseCases
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [DomainUseCasesModule::class])
-interface DomainComponents: DomainDependenciesProvider {
+@Component(modules = [UseCasesModule::class])
+interface UseCasesComponents: UseCasesDependenciesProvider {
     override fun openWeatherUseCases(): IOpenWeatherUseCases
 
     @Component.Builder
@@ -16,6 +16,6 @@ interface DomainComponents: DomainDependenciesProvider {
         @BindsInstance
         fun openWeatherRepository(openWeatherRepository: IOpenWeather): Builder
 
-        fun build(): DomainComponents
+        fun build(): UseCasesComponents
     }
 }

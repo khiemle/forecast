@@ -1,6 +1,6 @@
 package com.khiemle.nab.presentation
 
-import com.khiemle.domain.models.Forecast
+import com.khiemle.usecases.models.Forecast
 
 interface IMainView {
     fun showDailyForecast(forecasts: List<Forecast>)

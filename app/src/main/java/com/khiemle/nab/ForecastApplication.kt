@@ -4,8 +4,8 @@ import android.app.Application
 import com.khiemle.data.deps.AppConfigs
 import com.khiemle.data.deps.DaggerDataComponents
 import com.khiemle.data.deps.DataComponents
-import com.khiemle.domain.openweather.deps.DaggerDomainComponents
-import com.khiemle.domain.openweather.deps.DomainComponents
+import com.khiemle.usecases.openweather.deps.DaggerUseCasesComponents
+import com.khiemle.usecases.openweather.deps.UseCasesComponents
 import com.khiemle.nab.deps.AppComponents
 import com.khiemle.nab.deps.DaggerAppComponents
 import com.khiemle.nab.deps.DependenciesProvider
@@ -31,14 +31,14 @@ class ForecastApplication : Application(), DependenciesProvider {
         DaggerDataComponents.builder().appConfigs(appConfigs)
             .openWeatherLocalDatabase(frameworkComponents.openWeatherLocalDatabase()).build()
     }
-    private val domainComponents: DomainComponents by lazy {
-        DaggerDomainComponents.builder()
+    private val useCasesComponents: UseCasesComponents by lazy {
+        DaggerUseCasesComponents.builder()
             .openWeatherRepository(dataComponents.openWeatherRepository()).build()
     }
 
     private val appComponents: AppComponents by lazy {
         DaggerAppComponents.builder().context(applicationContext)
-            .openWeatherUseCases(domainComponents.openWeatherUseCases()).build()
+            .openWeatherUseCases(useCasesComponents.openWeatherUseCases()).build()
     }
 
     override fun provideInjectionProvider(): InjectionProvider = appComponents

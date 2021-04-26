@@ -3,9 +3,9 @@ package com.khiemle.nab
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor
 import androidx.lifecycle.Observer
-import com.khiemle.domain.models.DataResultError
-import com.khiemle.domain.models.DataResultSuccess
-import com.khiemle.domain.openweather.usecases.IOpenWeatherUseCases
+import com.khiemle.usecases.models.DataResultError
+import com.khiemle.usecases.models.DataResultSuccess
+import com.khiemle.usecases.openweather.usecases.IOpenWeatherUseCases
 import com.khiemle.nab.presentation.MainState
 import com.khiemle.nab.presentation.MainViewModel
 import kotlinx.coroutines.Dispatchers

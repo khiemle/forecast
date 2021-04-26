@@ -1,7 +1,7 @@
 package com.khiemle.nab.framework.room.models
 
 import androidx.room.Entity
-import com.khiemle.domain.models.Forecast
+import com.khiemle.usecases.models.Forecast
 
 internal const val CELSIUS_CHAR = "\u2103"
 internal const val HUMIDITY_SIGN = "%"

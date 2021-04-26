@@ -1,4 +1,4 @@
-package com.khiemle.domain.models
+package com.khiemle.usecases.models
 
 sealed class DataResult<out T: Any>
 

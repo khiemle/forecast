@@ -1,6 +1,6 @@
 package com.khiemle.nab
 
-import com.khiemle.domain.models.Forecast
+import com.khiemle.usecases.models.Forecast
 
 const val TIMESTAMP_TEST = 1618286400L
 const val AVERAGE_TEMP = 30

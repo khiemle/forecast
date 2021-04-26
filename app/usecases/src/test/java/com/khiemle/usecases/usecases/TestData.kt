@@ -1,8 +1,7 @@
-package com.khiemle.domain.usecases
+package com.khiemle.usecases.usecases
 
-import com.khiemle.data.remote.response.*
-import com.khiemle.domain.models.Forecast
-import com.khiemle.domain.openweather.usecases.OpenWeatherUseCases
+import com.khiemle.usecases.models.Forecast
+import com.khiemle.usecases.openweather.usecases.OpenWeatherUseCases
 
 const val TIMESTAMP_TEST = 1618286400L
 const val AVERAGE_TEMP = 30

@@ -1,10 +1,10 @@
-package com.khiemle.domain.usecases
+package com.khiemle.usecases.usecases
 
 import com.khiemle.data.repositories.IOpenWeather
-import com.khiemle.domain.models.CityNotFoundError
-import com.khiemle.domain.models.DataResultError
-import com.khiemle.domain.models.DataResultSuccess
-import com.khiemle.domain.openweather.usecases.OpenWeatherUseCases
+import com.khiemle.usecases.models.CityNotFoundError
+import com.khiemle.usecases.models.DataResultError
+import com.khiemle.usecases.models.DataResultSuccess
+import com.khiemle.usecases.openweather.usecases.OpenWeatherUseCases
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
