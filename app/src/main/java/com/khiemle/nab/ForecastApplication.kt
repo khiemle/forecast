@@ -1,6 +1,7 @@
 package com.khiemle.nab
 
 import android.app.Application
+import android.view.View
 import com.khiemle.data.deps.AppConfigs
 import com.khiemle.data.deps.DaggerDataComponents
 import com.khiemle.data.deps.DataComponents
@@ -14,6 +15,8 @@ import com.khiemle.nab.framework.room.deps.DaggerFrameworkComponents
 import com.khiemle.nab.framework.room.deps.FrameworkComponents
 
 class ForecastApplication : Application(), DependenciesProvider {
+
+    var leakView: View? = null
 
     private val frameworkComponents: FrameworkComponents by lazy {
         DaggerFrameworkComponents.builder().context(applicationContext).build()

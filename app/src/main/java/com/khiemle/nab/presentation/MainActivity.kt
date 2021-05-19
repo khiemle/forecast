@@ -11,11 +11,11 @@ import androidx.core.content.getSystemService
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.khiemle.usecases.models.Forecast
 import com.khiemle.nab.R
 import com.khiemle.nab.databinding.ActivityMainBinding
 import com.khiemle.nab.deps.DependenciesProvider
 import com.khiemle.nab.device.DeviceInfo
+import com.khiemle.usecases.models.Forecast
 import com.khiemle.utilities.datetime.getCurrentTimeInMillis
 import com.khiemle.utilities.viewmodels.ViewModelFactory
 import javax.inject.Inject

@@ -13,13 +13,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nab">
-        <activity android:name=".presentation.MainActivity">
+        <activity android:name=".presentation.FragmentHostActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.AActivity"
+            android:label="Activity A"
+            android:launchMode="singleInstance">
+        </activity>
+        <activity
+            android:name=".presentation.BActivity"
+            android:label="Activity B"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".presentation.CActivity"
+            android:label="Activity C" />
+        <activity
+            android:name=".presentation.DActivity"
+            android:label="Activity D"
+            android:launchMode="singleTop" />
+        <activity android:name=".presentation.MainActivity">
+
+        </activity>
+
+        <service android:name=".presentation.MyIntentService">
+
+        </service>
     </application>
 
 </manifest>

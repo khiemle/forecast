@@ -68,6 +68,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
@@ -95,4 +96,14 @@ dependencies {
     implementation(Libs.AndroidJetPack.AndroidX.Room.roomKtx)
     kapt(Libs.AndroidJetPack.AndroidX.Room.roomCompiler)
 
+    // Java language implementation
+    implementation("androidx.fragment:fragment:1.3.3")
+    // Kotlin
+    implementation("androidx.fragment:fragment-ktx:1.3.3")
+
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
+
+    implementation("io.reactivex.rxjava3:rxjava:3.0.12")
+
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
 }
